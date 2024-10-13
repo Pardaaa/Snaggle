@@ -8,7 +8,7 @@ const user = db.define(
   {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
-    password: DataTypes.STRING(60),
+    password: DataTypes.STRING(100),
   },
   {
     freezeTableName: true,
@@ -16,6 +16,6 @@ const user = db.define(
 );
 
 export default user;
-async () => {
-  await db.sync;
-};
+(async () => {
+  await db.sync();
+})();
