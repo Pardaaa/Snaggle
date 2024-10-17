@@ -1,10 +1,30 @@
 import express from "express";
 import cors from "cors";
-import adminRoute from "./routes/adminRoute";
+import session from "express-session";
+import dotenv from "dotenv";
+dotenv.config();
+import adminRoute from "./routes/userRoute.js";
 
 const app = express();
-app.use(cors());
+
+app.use(
+  session({
+    secret: process.env.SESS_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {},
+    secure: "auto",
+  })
+);
+
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
+);
 app.use(express.json());
+
 app.use(adminRoute);
 
-app.listen(5000, () => console.log("Running App"));
+app.listen(process.env.APP_PORT, () => console.log("Running App"));
