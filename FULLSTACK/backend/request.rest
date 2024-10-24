@@ -1,1 +1,62 @@
+// create User
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+  "name" : "iman",
+  "email": "iman@gmail.com",
+  "password" : "snaggle",
+  "confPassword": "snaggle",
+  "role": "user"
+}
+
+###
+// get All User
 GET http://localhost:5000/users
+
+
+###
+// get Single User
+GET http://localhost:5000/users/dae71a8b-9cd8-485c-9221-56b2783acdf6
+
+###
+// Update User
+PATCH  http://localhost:5000/users/dae71a8b-9cd8-485c-9221-56b2783acdf6
+Content-Type: application/json
+
+{
+  "name" : "Nabilla Updated",
+  "email": "nabilla@gmail.com",
+  "password" : "",
+  "confPassword": ""
+}
+
+###
+// delete User
+DELETE   http://localhost:5000/users/d1d4f329-12a6-46b9-aaaf-cc36d3701a26
+
+###
+// login User
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "nabilla@gmail.com",
+  "password" : "snaggle"
+}
+
+###
+GET http://localhost:5000/me
+
+###
+DELETE  http://localhost:5000/logout
+
+###
+// login User
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "iman@gmail.com",
+  "password" : "snaggle"
+}

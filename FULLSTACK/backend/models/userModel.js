@@ -27,6 +27,11 @@ const user = db.define(
       allowNull: false,
       validate: { notEmpty: true },
     },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: { notEmpty: true },
+    },
   },
   {
     freezeTableName: true,
