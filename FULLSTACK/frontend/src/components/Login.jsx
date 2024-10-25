@@ -1,0 +1,52 @@
+import React from "react";
+import photo from "../images/OnePiece.jpg";
+
+const Login = () => {
+  const backgroundImage = {
+    backgroundImage: `url(${photo})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+  };
+  return (
+    <section
+      className="hero is-fullheight is-fullwidth"
+      style={backgroundImage}
+    >
+      <div className="hero-body">
+        <div className="container">
+          <div className="columns is-centered">
+            <div className="column is-4">
+              <form className="box">
+                <h1 className="title is-4 has-text-centered">Login</h1>
+                <div className="field">
+                  <label className="label">Email</label>
+                  <div className="control">
+                    <input type="text" className="input" placeholder="Email" />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label">Password</label>
+                  <div className="control">
+                    <input
+                      type="password"
+                      className="input"
+                      placeholder="********"
+                    />
+                  </div>
+                </div>
+                <div className="field mt-5 ">
+                  <button className="button is-success is-fullwidth">
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Login;

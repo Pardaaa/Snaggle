@@ -60,3 +60,33 @@ Content-Type: application/json
   "email": "iman@gmail.com",
   "password" : "snaggle"
 }
+
+###
+// get All Category
+GET http://localhost:5000/category
+
+###
+// get Single Category
+GET http://localhost:5000/category/c9bc1736-65bd-4f6a-b1f8-d5810e28a8bb
+
+###
+// post Data Category
+POST http://localhost:5000/category
+Content-Type: application/json
+
+{
+  "name": "T-shirt"
+}
+
+###
+// post Data Category
+PATCH  http://localhost:5000/category/f24ea77e-a547-418c-b5e7-e0322cdefbf7
+Content-Type: application/json
+
+{
+  "name": "Dress"
+}
+
+###
+// Delete Data Category
+DELETE   http://localhost:5000/category/f24ea77e-a547-418c-b5e7-e0322cdefbf7
