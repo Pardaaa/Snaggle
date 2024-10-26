@@ -1,10 +1,12 @@
 import Product from "../models/productModel.js";
+import Category from "../models/categoryModel.js";
 
 export const getProduct = async (req, res) => {
   try {
     let response;
     response = await Product.findAll({
       attributes: ["uuid", "name"],
+      include: [{ model: Category, attributes: ["name"] }],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -24,6 +26,7 @@ export const getProductbyId = async (req, res) => {
       where: {
         id: product.id,
       },
+      include: [{ model: Category, attributes: ["name"] }],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -32,12 +35,14 @@ export const getProductbyId = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-  const { name } = req.body;
+  const { name, categoryId } = req.body;
   let userId = req.userId;
+
   try {
     await Product.create({
       name: name,
       userId: userId,
+      categoryId: categoryId,
     });
     res.status(201).json({ msg: "Product Created Succsesfully" });
   } catch (error) {
@@ -51,16 +56,16 @@ export const updateProduct = async (req, res) => {
       where: { uuid: req.params.id },
     });
     if (!product) return res.status(404).json({ msg: "Data Tidak Ditemukan" });
-    const { name } = req.body;
+    const { name, categoryId } = req.body;
     if (req.role === "admin") {
       await Product.update(
-        { name: name },
+        { name: name, categoryId: categoryId },
         {
           where: { id: product.id },
         }
       );
     }
-    res.status(200).json({ msg: "Category Updated" });
+    res.status(200).json({ msg: "Product Updated Successfully" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
