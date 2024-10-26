@@ -9,7 +9,7 @@ export const login = async (req, res) => {
   });
 
   if (!user) {
-    return res.status(404).json({ message: "User Tidak Ditemukan" });
+    return res.status(404).json({ msg: "User Tidak Ditemukan" });
   }
   const match = await argon2.verify(user.password, req.body.password);
   if (!match) return res.status(400).json({ msg: "Password Salah" });
@@ -32,7 +32,7 @@ export const Me = async (req, res) => {
   });
 
   if (!user) {
-    return res.status(404).json({ message: "User Tidak Ditemukan" });
+    return res.status(404).json({ msg: "User Tidak Ditemukan" });
   }
   res.status(200).json({ user });
 };
