@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import argon2 from "argon2";
 import user from "../models/userModel.js";
 
 (async () => {
@@ -7,7 +7,8 @@ import user from "../models/userModel.js";
       {
         name: "Nathan Raphael",
         email: "2272039@maranatha.ac.id",
-        password: bcrypt.hashSync("snaggle", 10),
+        role: "admin",
+        password: argon2.hash("snaggle"),
       },
     ]);
     console.log("Berhasil melakukan seed");
