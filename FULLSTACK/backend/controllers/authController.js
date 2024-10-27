@@ -34,7 +34,7 @@ export const Me = async (req, res) => {
   if (!user) {
     return res.status(404).json({ msg: "User Tidak Ditemukan" });
   }
-  res.status(200).json({ user });
+  res.status(200).json(user);
 };
 
 export const logout = (req, res) => {

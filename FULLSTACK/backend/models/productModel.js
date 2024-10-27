@@ -34,6 +34,11 @@ const product = db.define(
       allowNull: false,
       validate: { notEmpty: true },
     },
+    picture: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: { notEmpty: true },
+    },
     categoryId: {
       type: DataTypes.INTEGER,
       allowNull: false,

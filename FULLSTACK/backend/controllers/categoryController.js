@@ -4,7 +4,7 @@ export const getCategory = async (req, res) => {
   try {
     let response;
     response = await Category.findAll({
-      attributes: ["uuid", "name"],
+      attributes: ["uuid", "id", "name"],
     });
     res.status(200).json(response);
   } catch (error) {

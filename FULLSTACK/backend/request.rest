@@ -90,3 +90,16 @@ Content-Type: application/json
 ###
 // Delete Data Category
 DELETE   http://localhost:5000/category/f24ea77e-a547-418c-b5e7-e0322cdefbf7
+
+###
+// post Data Category
+POST http://localhost:5000/product
+Content-Type: application/json
+
+{
+  "name": "Kemeja Panjang",
+  "description": "sawerwr",
+  "price": 100000,
+  "status": "tersedia",
+  "categoryId":"1"
+}
