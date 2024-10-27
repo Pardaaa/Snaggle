@@ -5,12 +5,24 @@ import { useNavigate } from "react-router-dom";
 const FormAddProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [file, setFile] = useState("");
+  const [preview, setPreview] = useState("");
+  const [fileName, setFileName] = useState("Info file…");
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
+
+  const handleFileInputChange = (event) => {
+    const image = event.target.files[0];
+    if (image) {
+      setFile(image);
+      setFileName(image.name);
+      setPreview(URL.createObjectURL(image));
+    }
+  };
 
   useEffect(() => {
     getCategoriy();
@@ -23,14 +35,16 @@ const FormAddProduct = () => {
 
   const saveProduct = async (event) => {
     event.preventDefault();
-    console.log("Category ID before submit:", categoryId);
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("status", status);
+    formData.append("file", file);
+    formData.append("categoryId", categoryId);
     try {
-      await axios.post("http://localhost:5000/product", {
-        name: name,
-        description: description,
-        price: price,
-        status: status,
-        categoryId: categoryId,
+      await axios.post("http://localhost:5000/product", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       navigate("/products");
     } catch (error) {
@@ -100,6 +114,32 @@ const FormAddProduct = () => {
                   </div>
                 </div>
               </div>
+              <div className="field">
+                <label className="label">Picture</label>
+                <div className="file has-name is-fullwidth">
+                  <label className="file-label">
+                    <input
+                      className="file-input"
+                      type="file"
+                      onChange={handleFileInputChange}
+                    />
+                    <span className="file-cta">
+                      <span className="file-icon">
+                        <i className="fas fa-upload"></i>
+                      </span>
+                      <span className="file-label">Choose a file…</span>
+                    </span>
+                    <span className="file-name">{fileName}</span>
+                  </label>
+                </div>
+              </div>
+              {preview ? (
+                <figure className="image is-128x128">
+                  <img src={preview} alt="Preview" />
+                </figure>
+              ) : (
+                ""
+              )}
               <div className="field">
                 <label className="label">Category</label>
                 <div className="control">

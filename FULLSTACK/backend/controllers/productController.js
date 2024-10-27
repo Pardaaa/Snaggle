@@ -1,6 +1,5 @@
 import Product from "../models/productModel.js";
 import Category from "../models/categoryModel.js";
-import fs from "fs";
 import path from "path";
 
 export const getProduct = async (req, res) => {
@@ -10,11 +9,7 @@ export const getProduct = async (req, res) => {
       attributes: ["uuid", "name", "description", "price", "status", "picture"],
       include: [{ model: Category, attributes: ["name"] }],
     });
-    const responseWithImages = response.map((product) => ({
-      ...product.toJSON(),
-      picture: product.picture ? product.picture.toString("base64") : null,
-    }));
-    res.status(200).json(responseWithImages);
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
@@ -31,7 +26,6 @@ export const getProductbyId = async (req, res) => {
       name: product.name,
       description: product.description,
       price: product.price,
-      picture: product.picture ? product.picture.toString("base64") : null,
       category: await product.getCategory({ attributes: ["name"] }),
     };
     res.status(200).json(response);
@@ -41,27 +35,38 @@ export const getProductbyId = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
+  if (req.files === null)
+    return res.status(400).json({ msg: "No File Uplouded" });
+  const file = req.files.file;
+  const fileSize = file.data.length;
+  const ext = path.extname(file.name);
+  const fileName = file.md5 + ext;
+  const url = `${req.protocol}://${req.get("host")}/images/${fileName}`;
+  const allowType = [".png", ".jpg", ".jpeg"];
   const { name, price, description, status, categoryId } = req.body;
+  if (!allowType.includes(ext.toLowerCase()))
+    return res.status(422).json({ msg: "Invalid Images" });
+  if (fileSize > 5000000)
+    return res.status(422).json({ msg: "Image must be less than 5 MB" });
   let userId = req.userId;
-  try {
-    let picture = null;
-    if (req.file) {
-      picture = fs.readFileSync(req.file.path);
-      fs.unlinkSync(req.file.path);
+  file.mv(`./public/images/${fileName}`, async (err) => {
+    if (err) return res.status(500).json({ msg: err.message });
+    try {
+      await Product.create({
+        name: name,
+        description: description,
+        price: price,
+        status: status,
+        picture: fileName,
+        url: url,
+        userId: userId,
+        categoryId: categoryId,
+      });
+      res.status(201).json({ msg: "Product Created Succsesfully" });
+    } catch (error) {
+      res.status(500).json({ msg: error.message });
     }
-    await Product.create({
-      name: name,
-      description: description,
-      price: price,
-      status: status,
-      picture: picture,
-      userId: userId,
-      categoryId: categoryId,
-    });
-    res.status(201).json({ msg: "Product Created Succsesfully" });
-  } catch (error) {
-    res.status(500).json({ msg: error.message });
-  }
+  });
 };
 
 export const updateProduct = async (req, res) => {

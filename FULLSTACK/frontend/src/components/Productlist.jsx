@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IoTrashSharp, IoCreateSharp , IoSearchSharp } from "react-icons/io5";
+import { IoTrashSharp, IoCreateSharp, IoSearchSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -49,7 +49,7 @@ const Productlist = () => {
                   to={`/products/edit/${product.uuid}`}
                   className="button  is-warning mr-2"
                 >
-                  <IoCreateSharp  />
+                  <IoCreateSharp />
                 </Link>
                 <button
                   onClick={() => deleteProduct(product.uuid)}
