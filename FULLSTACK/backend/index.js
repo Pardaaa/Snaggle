@@ -8,6 +8,7 @@ import userRoute from "./routes/userRoute.js";
 import productRoute from "./routes/productRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
 import authRoute from "./routes/authRoute.js";
+import fileUpload from "express-fileupload";
 dotenv.config();
 
 const app = express();
@@ -30,6 +31,8 @@ app.use(
     cookie: { secure: "auto" },
   })
 );
+
+app.use(fileUpload());
 
 app.use(
   cors({
