@@ -3,27 +3,26 @@ import { IoTrashSharp, IoCreateSharp, IoSearchSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Userlist = () => {
-  const [users, setUsers] = useState([]);
+const CategoryList = () => {
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getUsers();
+    getCategories();
   }, []);
 
-  const getUsers = async () => {
-    const response = await axios.get("http://localhost:5000/users");
-    setUsers(response.data);
+  const getCategories = async () => {
+    const response = await axios.get("http://localhost:5000/category");
+    setCategories(response.data);
   };
-  const deleteUsers = async (userId) => {
-    await axios.delete(`http://localhost:5000/users/${userId}`);
-    setUsers(users.filter((user) => user.uuid !== userId));
+  const deleteCategories = async (userId) => {
+    await axios.delete(`http://localhost:5000/category/${userId}`);
+    setCategories();
   };
-
   return (
     <div>
-      <h1 className="title">Users</h1>
-      <h2 className="subtitle">List of Users</h2>
-      <Link to={"/users/add"} className="button is-info mb-2">
+      <h1 className="title">Categories</h1>
+      <h2 className="subtitle">List of Categories</h2>
+      <Link to={"/category/add"} className="button is-info mb-2">
         Add New
       </Link>
       <table className="table is-striped is-fullwidth">
@@ -31,27 +30,23 @@ const Userlist = () => {
           <tr>
             <th>No</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
-            <tr key={user.uuid}>
+          {categories.map((category, index) => (
+            <tr key={category.uuid}>
               <td>{index + 1}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
+              <td>{category.name}</td>
               <td>
                 <Link
-                  to={`/users/edit/${user.uuid}`}
+                  to={`/category/edit/${category.uuid}`}
                   className="button  is-warning mr-2"
                 >
                   <IoCreateSharp />
                 </Link>
                 <button
-                  onClick={() => deleteUsers(user.uuid)}
+                  onClick={() => deleteCategories(category.uuid)}
                   className="button is-danger"
                 >
                   <IoTrashSharp />
@@ -65,4 +60,4 @@ const Userlist = () => {
   );
 };
 
-export default Userlist;
+export default CategoryList;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LoginUser, reset } from "../features/authSlice";
-import photo from "../Images/OnePiece.jpg";
+import photo from "../Images/background.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");

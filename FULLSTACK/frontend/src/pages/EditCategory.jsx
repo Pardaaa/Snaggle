@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import Layout from "./Layout";
-import FormEditProduct from "../components/FormEditProduct";
+import FormEditCategory from "../components/FormEditCategory";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
 
-const EditProduct = () => {
+const EditCategory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isError, user } = useSelector((state) => state.auth);
@@ -23,9 +23,9 @@ const EditProduct = () => {
   }, [isError, user, navigate]);
   return (
     <Layout>
-      <FormEditProduct />
+      <FormEditCategory />
     </Layout>
   );
 };
 
-export default EditProduct;
+export default EditCategory;

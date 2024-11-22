@@ -1,6 +1,7 @@
 import Product from "../models/productModel.js";
 import Category from "../models/categoryModel.js";
 import path from "path";
+import fs from "fs";
 
 export const getProduct = async (req, res) => {
   try {
@@ -76,20 +77,69 @@ export const updateProduct = async (req, res) => {
     });
     if (!product) return res.status(404).json({ msg: "Data Tidak Ditemukan" });
 
-    const { name, description, price, status, categoryId } = req.body;
-    let updates = { name, description, price, status, categoryId };
-    if (req.file) {
-      updates.picture = fs.readFileSync(req.file.path);
+    const {
+      name = product.name,
+      description = product.description,
+      price = product.price,
+    } = req.body;
+
+    const status = req.body.status || product.status;
+    const categoryId = req.body.categoryId || product.categoryId;
+
+    let updates = {
+      name,
+      description,
+      price,
+      status,
+      categoryId,
+      picture: product.picture,
+      url: product.url,
+    };
+
+    if (req.files && req.files.file) {
+      const file = req.files.file;
+      const fileSize = file.data.length;
+      const ext = path.extname(file.name);
+      const allowType = [".png", ".jpg", ".jpeg"];
+
+      if (!allowType.includes(ext.toLowerCase()))
+        return res.status(422).json({ msg: "Invalid Image Format" });
+
+      if (fileSize > 5000000)
+        return res.status(422).json({ msg: "Image must be less than 5 MB" });
+
+      const fileName = file.md5 + ext;
+      const url = `${req.protocol}://${req.get("host")}/images/${fileName}`;
+      updates.picture = fileName;
+      updates.url = url;
+
+      file.mv(`./public/images/${fileName}`, (err) => {
+        if (err) return res.status(500).json({ msg: err.message });
+      });
+
+      if (product.picture) {
+        const oldImagePath = `./public/images/${product.picture}`;
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        }
+      }
     }
 
     if (req.role === "admin") {
       await Product.update(updates, {
         where: { id: product.id },
       });
+    } else {
+      if (req.userId !== product.userId)
+        return res.status(403).json({ msg: "Akses Terlarang" });
+      await Product.update(updates, {
+        where: { id: product.id },
+      });
     }
-    res.status(200).json({ msg: "Product Updated Successfully" });
+
+    res.status(200).json({ msg: "Product updated successfully" });
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    res.status(400).json({ msg: error.message });
   }
 };
 
@@ -104,7 +154,7 @@ export const deleteProduct = async (req, res) => {
         where: { id: product.id },
       });
     }
-    res.status(200).json({ msg: "Deleted Succsessfully" });
+    res.status(201).json({ msg: "Deleted Succsessfully" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }

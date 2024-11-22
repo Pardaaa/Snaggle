@@ -9,7 +9,7 @@ const FormAddProduct = () => {
   const [preview, setPreview] = useState("");
   const [fileName, setFileName] = useState("Info file…");
   const [price, setPrice] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState([]);
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
   const [msg, setMsg] = useState("");
@@ -22,15 +22,6 @@ const FormAddProduct = () => {
       setFileName(image.name);
       setPreview(URL.createObjectURL(image));
     }
-  };
-
-  useEffect(() => {
-    getCategoriy();
-  }, []);
-
-  const getCategoriy = async () => {
-    const response = await axios.get("http://localhost:5000/category");
-    setCategories(response.data);
   };
 
   const saveProduct = async (event) => {
@@ -52,6 +43,15 @@ const FormAddProduct = () => {
         setMsg(error.response.data.msg);
       }
     }
+  };
+
+  useEffect(() => {
+    getCategoriy();
+  }, []);
+
+  const getCategoriy = async () => {
+    const response = await axios.get("http://localhost:5000/category");
+    setCategories(response.data);
   };
 
   return (
@@ -107,7 +107,6 @@ const FormAddProduct = () => {
                       value={status}
                       onChange={(event) => setStatus(event.target.value)}
                     >
-                      <option value="">Select Status</option>
                       <option value="tersedia">Tersedia</option>
                       <option value="tidak tersedia">Tidak Tersedia</option>
                     </select>
