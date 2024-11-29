@@ -30,8 +30,8 @@ const Productlist = () => {
           <tr>
             <th>No</th>
             <th>Name</th>
-            <th>Description</th>
             <th>Price</th>
+            <th>Stock</th>
             <th>Category</th>
             <th>Action</th>
           </tr>
@@ -41,14 +41,16 @@ const Productlist = () => {
             <tr key={product.uuid}>
               <td>{index + 1}</td>
               <td>{product.name}</td>
-              <td>{product.description}</td>
               <td>{product.price}</td>
               <td>{product.stok}</td>
               <td>{product.category.name}</td>
               <td>
+                <Link className="button is-info mr-2">
+                  <IoSearchSharp/>
+                </Link>
                 <Link
                   to={`/products/edit/${product.uuid}`}
-                  className="button  is-warning mr-2"
+                  className="button is-warning mr-2"
                 >
                   <IoCreateSharp />
                 </Link>
