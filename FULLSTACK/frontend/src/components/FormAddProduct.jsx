@@ -9,7 +9,7 @@ const FormAddProduct = () => {
   const [preview, setPreview] = useState("");
   const [fileName, setFileName] = useState("Info file…");
   const [price, setPrice] = useState("");
-  const [status, setStatus] = useState([]);
+  const [stok, setStok] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
   const [msg, setMsg] = useState("");
@@ -30,7 +30,7 @@ const FormAddProduct = () => {
     formData.append("name", name);
     formData.append("description", description);
     formData.append("price", price);
-    formData.append("status", status);
+    formData.append("stok", stok);
     formData.append("file", file);
     formData.append("categoryId", categoryId);
     try {
@@ -100,17 +100,15 @@ const FormAddProduct = () => {
                 </div>
               </div>
               <div className="field">
-                <label className="label">Status</label>
+                <label className="label">Stok</label>
                 <div className="control">
-                  <div className="select is-fullwidth">
-                    <select
-                      value={status}
-                      onChange={(event) => setStatus(event.target.value)}
-                    >
-                      <option value="tersedia">Tersedia</option>
-                      <option value="tidak tersedia">Tidak Tersedia</option>
-                    </select>
-                  </div>
+                  <input
+                    type="number"
+                    className="input"
+                    value={stok}
+                    onChange={(event) => setStok(parseInt(event.target.value))}
+                    placeholder="Stok"
+                  />
                 </div>
               </div>
               <div className="field">

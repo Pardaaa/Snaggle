@@ -43,6 +43,7 @@ const Productlist = () => {
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>{product.price}</td>
+              <td>{product.stok}</td>
               <td>{product.category.name}</td>
               <td>
                 <Link

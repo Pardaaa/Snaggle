@@ -7,7 +7,7 @@ export const getProduct = async (req, res) => {
   try {
     let response;
     response = await Product.findAll({
-      attributes: ["uuid", "name", "description", "price", "status", "picture"],
+      attributes: ["uuid", "name", "description", "price", "stok", "picture"],
       include: [{ model: Category, attributes: ["name"] }],
     });
     res.status(200).json(response);
@@ -26,6 +26,7 @@ export const getProductbyId = async (req, res) => {
       uuid: product.uuid,
       name: product.name,
       description: product.description,
+      stok: product.stok,
       price: product.price,
       category: await product.getCategory({ attributes: ["name"] }),
     };
@@ -44,7 +45,7 @@ export const createProduct = async (req, res) => {
   const fileName = file.md5 + ext;
   const url = `${req.protocol}://${req.get("host")}/images/${fileName}`;
   const allowType = [".png", ".jpg", ".jpeg"];
-  const { name, price, description, status, categoryId } = req.body;
+  const { name, price, description, stok, categoryId } = req.body;
   if (!allowType.includes(ext.toLowerCase()))
     return res.status(422).json({ msg: "Invalid Images" });
   if (fileSize > 5000000)
@@ -57,7 +58,7 @@ export const createProduct = async (req, res) => {
         name: name,
         description: description,
         price: price,
-        status: status,
+        stok: stok,
         picture: fileName,
         url: url,
         userId: userId,
@@ -81,16 +82,15 @@ export const updateProduct = async (req, res) => {
       name = product.name,
       description = product.description,
       price = product.price,
+      stok = product.stok
     } = req.body;
-
-    const status = req.body.status || product.status;
     const categoryId = req.body.categoryId || product.categoryId;
 
     let updates = {
       name,
       description,
       price,
-      status,
+      stok,
       categoryId,
       picture: product.picture,
       url: product.url,

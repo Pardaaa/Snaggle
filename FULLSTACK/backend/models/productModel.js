@@ -29,8 +29,8 @@ const product = db.define(
       allowNull: false,
       validate: { notEmpty: true },
     },
-    status: {
-      type: DataTypes.ENUM("tersedia", "tidak tersedia"),
+    stok: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: { notEmpty: true },
     },

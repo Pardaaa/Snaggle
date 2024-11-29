@@ -9,7 +9,7 @@ const FormEditProduct = () => {
   const [preview, setPreview] = useState("");
   const [fileName, setFileName] = useState("Info file…");
   const [price, setPrice] = useState("");
-  const [status, setStatus] = useState("");
+  const [stok, setStok] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
   const [msg, setMsg] = useState("");
@@ -23,7 +23,7 @@ const FormEditProduct = () => {
         setName(response.data.name);
         setPrice(response.data.price);
         setDescription(response.data.description);
-        setStatus(response.data.status);
+        setStok(response.data.stok);
         setCategoryId(response.data.categoryId);
         setPreview(response.data.url || "");
       } catch (error) {
@@ -48,8 +48,8 @@ const FormEditProduct = () => {
     formData.append("name", name);
     formData.append("description", description);
     formData.append("price", price);
+    formData.append("stok", stok);
 
-    if (status) formData.append("status", status);
     if (categoryId) formData.append("categoryId", categoryId);
 
     if (file) {
@@ -119,18 +119,15 @@ const FormEditProduct = () => {
                 </div>
               </div>
               <div className="field">
-                <label className="label">Status</label>
+                <label className="label">Stok</label>
                 <div className="control">
-                  <div className="select is-fullwidth">
-                    <select
-                      value={status}
-                      onChange={(event) => setStatus(event.target.value)}
-                    >
-                      <option value="">Select Status</option>
-                      <option value="tersedia">Tersedia</option>
-                      <option value="tidak tersedia">Tidak Tersedia</option>
-                    </select>
-                  </div>
+                  <input
+                    type="number"
+                    className="input"
+                    value={stok}
+                    onChange={(event) => setStok(parseInt(event.target.value))}
+                    placeholder="Stok"
+                  />
                 </div>
               </div>
               <div className="field">
