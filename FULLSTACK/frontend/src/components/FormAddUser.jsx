@@ -93,8 +93,8 @@ const FormAddUser = () => {
                       value={role}
                       onChange={(e) => setRole(e.target.value)}
                     >
-                      <option value="admin">Admin</option>
-                      <option value="user">User</option>
+                      <option value="">Select Role</option>
+                      <option value="staff">Staff</option>
                     </select>
                   </div>
                 </div>

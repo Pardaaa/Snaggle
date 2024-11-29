@@ -37,7 +37,7 @@ const Userlist = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
+          {users.filter((user) => user.role !== "admin").map((user, index) => (
             <tr key={user.uuid}>
               <td>{index + 1}</td>
               <td>{user.name}</td>
