@@ -12,7 +12,7 @@ const Sidebar = () => {
   const logout = () => {
     dispatch(logOut());
     dispatch(reset());
-    navigate("/");
+    navigate("/login");
   };
 
   return (

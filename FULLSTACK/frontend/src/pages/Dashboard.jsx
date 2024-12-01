@@ -15,7 +15,7 @@ const Dashboard = () => {
   }, [dispatch]);
   useEffect(() => {
     if (isError) {
-      navigate("/");
+      navigate("/login");
     }
   }, [isError, navigate]);
 

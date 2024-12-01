@@ -15,7 +15,7 @@ const EditCategory = () => {
   }, [dispatch]);
   useEffect(() => {
     if (isError) {
-      navigate("/");
+      navigate("/login");
     }
     if (user && user.role !== "admin") {
       navigate("/dashboard");

@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/add" element={<AddUser />} />
@@ -24,7 +24,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/add" element={<AddProduct />} />
         <Route path="/products/edit/:id" element={<EditProduct />} />
-        <Route path="/products/info" element={<InfoProducts />} />
+        <Route path="/products/info/:id" element={<InfoProducts />} />
         <Route path="/category" element={<Categories />} />
         <Route path="/category/add" element={<AddCategory />} />
         <Route path="/category/edit/:id" element={<EditCategory />} />

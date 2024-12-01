@@ -33,7 +33,7 @@ app.use(
 );
 
 app.use(fileUpload());
-
+app.use(express.static("public"));
 app.use(
   cors({
     credentials: true,

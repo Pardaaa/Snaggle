@@ -27,6 +27,8 @@ export const getProductbyId = async (req, res) => {
       name: product.name,
       description: product.description,
       stok: product.stok,
+      picture: product.picture,
+      url: product.url,
       price: product.price,
       category: await product.getCategory({ attributes: ["name"] }),
     };

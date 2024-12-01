@@ -10,7 +10,7 @@ const Navbar = () => {
   const logout = () => {
     dispatch(logOut());
     dispatch(reset());
-    navigate("/");
+    navigate("/login");
   };
   return (
     <div>

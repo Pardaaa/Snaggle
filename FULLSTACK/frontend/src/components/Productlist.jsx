@@ -45,7 +45,7 @@ const Productlist = () => {
               <td>{product.stok}</td>
               <td>{product.category.name}</td>
               <td>
-                <Link className="button is-info mr-2">
+                <Link to={`/products/info/${product.uuid}`} className="button is-info mr-2">
                   <IoSearchSharp/>
                 </Link>
                 <Link
