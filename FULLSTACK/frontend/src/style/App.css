@@ -1,0 +1,53 @@
+/* Global Styles (App.css or similar) */
+body {
+    font-family: 'Poppins', sans-serif; /* Friendly font applied globally */
+    background-color: #fafafa; /* Soft light background for the app */
+    color: #333; /* Dark text color for readability */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Global heading styles */
+  h1, h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  /* General button style */
+  button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #6f4f97; /* Hover effect for buttons */
+    color: white;
+  }
+  
+  
+
+  /* Add this to your CSS file for content adjustment */
+
+/* Main content */
+.content {
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 0;
+    padding: 2rem;
+  }
+  
+  .content.shifted {
+    margin-left: 250px; /* This will shift the content to the right when the sidebar is open */
+  }
+  

@@ -42,6 +42,7 @@ app.use(
 );
 app.use(express.json());
 
+
 app.use(userRoute);
 app.use(productRoute);
 app.use(categoryRoute);

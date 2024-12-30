@@ -1,0 +1,115 @@
+/* Sidebar container */
+.sidebar-container {
+  background-color: #f8f8f8;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px 0 0 10px;
+  transition: transform 0.3s ease-in-out;
+  z-index: 90;
+  overflow: hidden; /* Prevent overflow */
+}
+
+/* When sidebar is closed, slide it out */
+.sidebar-container.closed {
+  transform: translateX(-100%);
+}
+
+/* Sidebar header with the toggle button */
+.sidebar-header {
+  display: flex;
+  justify-content: flex-start; /* Align the hamburger button to the left */
+  align-items: center; /* Center vertically */
+  margin-bottom: 1rem;
+  padding: 0.5rem 0; /* Add some padding to avoid it sticking to the top */
+  z-index: 200; /* Make sure the button stays on top */
+  position: relative; /* Ensure it is not being overlapped */
+  width: 100%; /* Ensure header width spans the full sidebar */
+}
+
+/* Hamburger Button */
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #6f4f97; /* Set the button color */
+  font-size: 2.5rem; /* Increase font size for the hamburger icon */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.5rem;
+  width: 50px; /* Set fixed width */
+  height: 50px; /* Set fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px; /* Rounded corners for the button */
+  z-index: 200; /* Ensure it's above other elements */
+  position: absolute; /* Ensure it's positioned absolutely inside the header */
+  top: 10px; /* Position it towards the top */
+  left: 10px; /* Position it towards the left */
+  background-color: transparent; /* Ensure button background is transparent */
+}
+
+.toggle-btn:hover {
+  color: #3e3e3e; /* Darken the icon color on hover */
+  background-color: rgba(0, 0, 0, 0.1); /* Light background on hover */
+}
+
+/* Menu labels */
+.menu-label {
+  color: #6f4f97;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+/* Menu items */
+.menu-list li {
+  margin-bottom: 1rem;
+}
+
+.menu-list li a {
+  color: #333;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.menu-list li a:hover {
+  background-color: #6f4f97;
+  color: #fff;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* LogOut Button - Same as general items hover */
+.menu-list li button {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.menu-list li button:hover {
+  background-color: #6f4f97;
+  color: #fff;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

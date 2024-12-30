@@ -5,7 +5,7 @@ import { IoLogoWhatsapp } from "react-icons/io5";
 
 const InfoProduct = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState([null]);
 
   useEffect(() => {
     const getProductById = async () => {
@@ -21,7 +21,7 @@ const InfoProduct = () => {
   }, [id]);
 
   if (!product) {
-    <p>loading...</p>
+    return <p>loading...</p>
   }
   return (
     <div className="columns is-vcentered is-centered mt-6 ml-6">

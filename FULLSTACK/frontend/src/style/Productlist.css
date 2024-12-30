@@ -1,0 +1,67 @@
+/* Productlist.css */
+
+/* Product list page */
+.productlist-container {
+    background-color: #f5f1e6;
+    padding: 2rem;
+    font-family: 'Georgia', serif;
+    color: #3e3e3e;
+  }
+  
+  /* Title and subtitle */
+  .title {
+    color: #4b2e83;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  
+  .subtitle {
+    color: #7f6e5f;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Table styles */
+  .table {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 1.5rem;
+  }
+  
+  th, td {
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  button {
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Action buttons */
+  .button {
+    border-radius: 8px;
+  }
+  
+  .button.is-info {
+    background-color: #6f4f97;
+    color: white;
+  }
+  
+  .button.is-warning {
+    background-color: #f4b400;
+    color: white;
+  }
+  
+  .button.is-danger {
+    background-color: #ff6347;
+    color: white;
+  }
+  
+  .button.is-info:hover,
+  .button.is-warning:hover,
+  .button.is-danger:hover {
+    opacity: 0.8;
+  }
+  

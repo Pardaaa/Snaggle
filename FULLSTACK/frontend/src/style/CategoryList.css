@@ -1,0 +1,65 @@
+/* Category list page */
+.categorylist-container {
+    background-color: #f5f1e6; /* Light beige background */
+    padding: 2rem;
+    font-family: 'Georgia', serif; /* Serif font for a classic look */
+    color: #3e3e3e; /* Dark gray text */
+  }
+  
+  /* Title and subtitle */
+  .title {
+    color: #4b2e83; /* Deep purple for the title */
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  
+  .subtitle {
+    color: #7f6e5f; /* Muted brown for subtitle */
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Table styles */
+  .table {
+    background-color: #fff; /* White table background */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-top: 1.5rem;
+  }
+  
+  th, td {
+    text-align: center; /* Center align table text */
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  /* Buttons */
+  button {
+    transition: background-color 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  .button {
+    border-radius: 8px; /* Rounded corners for buttons */
+  }
+  
+  .button.is-info {
+    background-color: #6f4f97; /* Purple for info buttons */
+    color: white;
+  }
+  
+  .button.is-warning {
+    background-color: #f4b400; /* Yellow for warning buttons */
+    color: white;
+  }
+  
+  .button.is-danger {
+    background-color: #ff6347; /* Red for danger buttons */
+    color: white;
+  }
+  
+  .button.is-info:hover,
+  .button.is-warning:hover,
+  .button.is-danger:hover {
+    opacity: 0.8; /* Slightly dim buttons on hover */
+  }
+  
