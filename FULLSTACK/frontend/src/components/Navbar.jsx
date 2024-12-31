@@ -1,71 +1,119 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logOut, reset } from "../features/authSlice";
-import "../style/Navbar.css";
+// NavbarComponent.js
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut, reset } from '../features/authSlice';
+import { IoLogOut } from 'react-icons/io5';
+import 'bulma/css/bulma.min.css';
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const { user } = useSelector(state => state.auth);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for toggling menu
+   const logout = () => {
+      dispatch(logOut());
+      dispatch(reset());
+      navigate('/login');
+   };
 
-  const logout = () => {
-    dispatch(logOut());
-    dispatch(reset());
-    navigate("/login");
-  };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen); // Toggle menu visibility
-  };
-
-  return (
-    <div>
+   return (
       <nav
-        className="navbar is-fixed-top has-shadow has-background-danger"
-        role="navigation"
-        aria-label="main navigation"
+         className="navbar"
+         style={{
+            backgroundColor: '#F1C9F9',
+            fontFamily: 'Josefin Sans, sans-serif',
+         }}
       >
-        <div className="navbar-brand">
-          {/* Brand or Title */}
-          <NavLink to={"/dashboard"} className="navbar-item">
-            <h1 className="title is-4">Snaggle</h1>
-          </NavLink>
+         <div className="navbar-brand">
+            <NavLink
+               to="/dashboard"
+               className="navbar-item"
+               style={{
+                  transition: 'color 0.3s ease',
+               }}
+               activeStyle={{ color: '#416B39' }}
+            >
+               Dashboard
+            </NavLink>
+            <NavLink
+               to="/category"
+               className="navbar-item"
+               style={{
+                  transition: 'color 0.3s ease',
+               }}
+               activeStyle={{ color: '#416B39' }}
+            >
+               Category
+            </NavLink>
+            <NavLink
+               to="/products"
+               className="navbar-item"
+               style={{
+                  transition: 'color 0.3s ease',
+               }}
+               activeStyle={{ color: '#416B39' }}
+            >
+               Product
+            </NavLink>
+            {user && user.role === 'admin' && (
+               <NavLink
+                  to="/users"
+                  className="navbar-item"
+                  style={{
+                     transition: 'color 0.3s ease',
+                  }}
+                  activeStyle={{ color: '#416B39' }}
+               >
+                  Users
+               </NavLink>
+            )}
+         </div>
+         <div
+            className="navbar-item"
+            style={{
+               display: 'flex',
+               justifyContent: 'center',
+               flex: 1,
+            }}
+         >
+            <span
+               style={{
+                  fontFamily: '"Jersey 25", serif',
+                  fontSize: '2.5rem',
+                  fontWeight: '400',
+                  fontStyle: 'bold',
+                  color: '#000',
+               }}
+            >
+               Snaggle
+            </span>
+         </div>
 
-          {/* Hamburger Menu */}
-          <button
-            onClick={toggleMenu}
-            className={`navbar-burger burger ${isMenuOpen ? "is-active" : ""}`}
-            aria-label="menu"
-            aria-expanded={isMenuOpen}
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </button>
-        </div>
-
-        {/* Menu */}
-        <div
-          id="navbarBasicExample"
-          className={`navbar-menu ${isMenuOpen ? "is-active" : ""}`}
-        >
-          <div className="navbar-end">
+         <div className="navbar-end">
             <div className="navbar-item">
-              <div className="buttons">
-                <button onClick={logout} className="button is-light">
-                  Log out
-                </button>
-              </div>
+               <button
+                  onClick={logout}
+                  className="button"
+                  style={{
+                     backgroundColor: '#416B39',
+                     color: 'white',
+                     display: 'flex',
+                     alignItems: 'center',
+                  }}
+               >
+                  <IoLogOut
+                     style={{
+                        marginRight: '8px',
+                        fontSize: '20px',
+                     }}
+                  />
+                  LogOut
+               </button>
             </div>
-          </div>
-        </div>
+         </div>
       </nav>
-    </div>
-  );
+   );
 };
 
 export default Navbar;
