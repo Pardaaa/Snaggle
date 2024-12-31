@@ -84,7 +84,10 @@ const Userlist = () => {
          </div>
 
          <div style={{ marginTop: '4rem', overflowX: 'auto' }}>
-            <table className="bg-cream" style={tableStyle}>
+            <table
+               className="bg-cream table is-striped is-fullwidth"
+               style={tableStyle}
+            >
                <thead>
                   <tr>
                      <th style={tableHeaderStyle}>No</th>
