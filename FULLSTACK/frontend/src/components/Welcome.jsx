@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'; // Untuk routing ke halaman detail
+import { Link } from 'react-router-dom';
 
 const Welcome = () => {
    const { user } = useSelector(state => state.auth);
