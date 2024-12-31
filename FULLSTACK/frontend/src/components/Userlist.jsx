@@ -4,7 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Userlist = () => {
+   const [allUsers, setAllUsers] = useState([]);
    const [users, setUsers] = useState([]);
+   const [searchTerm, setSearchTerm] = useState('');
    const navigate = useNavigate();
 
    useEffect(() => {
@@ -14,6 +16,7 @@ const Userlist = () => {
    const getUsers = async () => {
       try {
          const response = await axios.get('http://localhost:5000/users');
+         setAllUsers(response.data);
          setUsers(response.data);
       } catch (error) {
          console.error('Failed to fetch users:', error);
@@ -24,6 +27,7 @@ const Userlist = () => {
       try {
          await axios.delete(`http://localhost:5000/users/${userId}`);
          setUsers(users.filter(user => user.uuid !== userId));
+         setAllUsers(allUsers.filter(user => user.uuid !== userId));
       } catch (error) {
          console.error('Failed to delete user:', error);
       }
@@ -33,10 +37,29 @@ const Userlist = () => {
       navigate('/users/add');
    };
 
+   const handleSearchChange = e => {
+      setSearchTerm(e.target.value);
+   };
+
+   const handleSearch = () => {
+      if (searchTerm.trim() === '') {
+         setUsers(allUsers);
+      } else {
+         const filteredUsers = allUsers.filter(user =>
+            user.name.toLowerCase().includes(searchTerm.toLowerCase())
+         );
+         setUsers(filteredUsers);
+      }
+   };
+
    return (
       <div
          style={{
             fontFamily: "'Jersey 25', sans-serif",
+            margin: 'auto',
+            marginTop: '2rem',
+            flexGrow: 1,
+            width: '90%',
          }}
       >
          <h1
@@ -65,7 +88,7 @@ const Userlist = () => {
                style={{
                   ...addButtonStyle,
                   fontFamily: "'Josefin Sans', sans-serif",
-                  marginLeft: '22rem',
+                  marginLeft: '18rem',
                   marginRight: '10rem',
                }}
             >
@@ -77,8 +100,12 @@ const Userlist = () => {
                      type="text"
                      placeholder="Search By Name"
                      style={inputStyle}
+                     value={searchTerm}
+                     onChange={handleSearchChange}
                   />
-                  <button style={buttonInsideInputStyle}>Telusuri</button>
+                  <button style={buttonInsideInputStyle} onClick={handleSearch}>
+                     Telusuri
+                  </button>
                </div>
             </div>
          </div>
@@ -98,35 +125,38 @@ const Userlist = () => {
                   </tr>
                </thead>
                <tbody>
-                  {users.map((user, index) => (
-                     <tr
-                        key={user.uuid}
-                        style={{
-                           borderBottom: '1px solid #ccc',
-                        }}
-                     >
-                        <td style={tableCellStyle}>{index + 1}</td>
-                        <td style={tableCellStyle}>{user.name}</td>
-                        <td style={tableCellStyle}>{user.email}</td>
-                        <td style={tableCellStyle}>{user.role}</td>
-                        <td style={actionCellStyle}>
-                           <Link
-                              to={`/users/edit/${user.uuid}`}
-                              className="button is-warning mr-2"
-                              style={buttonIconStyle}
-                           >
-                              <IoCreateSharp />
-                           </Link>
-                           <button
-                              onClick={() => deleteUsers(user.uuid)}
-                              className="button is-danger"
-                              style={buttonIconStyle}
-                           >
-                              <IoTrashSharp />
-                           </button>
-                        </td>
-                     </tr>
-                  ))}
+                  {users.map(user => {
+                     const originalIndex = allUsers.findIndex(
+                        u => u.uuid === user.uuid
+                     );
+                     return (
+                        <tr
+                           key={user.uuid}
+                           style={{ borderBottom: '1px solid #ccc' }}
+                        >
+                           <td style={tableCellStyle}>{originalIndex + 1}</td>
+                           <td style={tableCellStyle}>{user.name}</td>
+                           <td style={tableCellStyle}>{user.email}</td>
+                           <td style={tableCellStyle}>{user.role}</td>
+                           <td style={actionCellStyle}>
+                              <Link
+                                 to={`/users/edit/${user.uuid}`}
+                                 className="button is-warning mr-2"
+                                 style={buttonIconStyle}
+                              >
+                                 <IoCreateSharp />
+                              </Link>
+                              <button
+                                 onClick={() => deleteUsers(user.uuid)}
+                                 className="button is-danger"
+                                 style={buttonIconStyle}
+                              >
+                                 <IoTrashSharp />
+                              </button>
+                           </td>
+                        </tr>
+                     );
+                  })}
                </tbody>
             </table>
          </div>
@@ -134,25 +164,22 @@ const Userlist = () => {
    );
 };
 
-// Styles
-
 const headerStyle = {
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
    marginBottom: '1rem',
+   flexWrap: 'nowrap',
 };
 
 const addButtonStyle = {
-   backgroundColor: '#2f855a',
+   backgroundColor: '#416B39',
    color: 'white',
-   padding: '0.5rem 1rem',
+   padding: '0.5rem 2rem',
    borderRadius: '0.5rem',
    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
    fontWeight: 'bold',
 };
-
-// Styles
 
 const searchContainerStyle = {
    display: 'flex',
@@ -160,6 +187,8 @@ const searchContainerStyle = {
    gap: '0.5rem',
    width: '50%',
    justifyContent: 'flex-start',
+   marginLeft: '3rem',
+   marginRight: '13rem',
 };
 
 const inputWrapperStyle = {
@@ -170,7 +199,7 @@ const inputWrapperStyle = {
 };
 
 const inputStyle = {
-   padding: '1rem 1.5rem',
+   padding: '0.8rem 1.5rem',
    border: '1px solid #ccc',
    borderRadius: '0.5rem',
    width: '90%',
@@ -182,14 +211,14 @@ const inputStyle = {
 };
 
 const buttonInsideInputStyle = {
-   backgroundColor: '#2f855a',
+   backgroundColor: '#416B39',
    color: 'white',
-   padding: '0.5rem 1rem',
+   padding: '0.5rem 2rem',
    borderRadius: '0.5rem',
    fontWeight: 'bold',
    fontFamily: "'Josefin Sans', sans-serif",
    position: 'absolute',
-   right: '8rem',
+   right: '6rem',
    top: '50%',
    transform: 'translateY(-50%)',
    cursor: 'pointer',
