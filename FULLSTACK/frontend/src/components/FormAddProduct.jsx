@@ -66,6 +66,10 @@ const FormAddProduct = () => {
       <div
          style={{
             fontFamily: "'Jersey 25', sans-serif",
+            margin: 'auto',
+            marginTop: '2rem',
+            flexGrow: 1,
+            width: '90%',
          }}
       >
          <h1

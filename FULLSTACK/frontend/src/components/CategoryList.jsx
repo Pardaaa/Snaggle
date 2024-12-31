@@ -24,6 +24,10 @@ const CategoryList = () => {
       <div
          style={{
             fontFamily: "'Jersey 25', sans-serif",
+            margin: 'auto',
+            marginTop: '2rem',
+            flexGrow: 1,
+            width: '90%',
          }}
       >
          <h1
@@ -123,7 +127,7 @@ const buttonStyle = {
    fontWeight: 'bold',
    display: 'block',
    marginTop: '1.5rem',
-   marginLeft: '30rem',
+   marginLeft: '25rem',
    marginRight: '2rem',
    width: 'fit-content',
 };
