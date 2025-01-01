@@ -66,6 +66,10 @@ const FormAddProduct = () => {
       <div
          style={{
             fontFamily: "'Jersey 25', sans-serif",
+            margin: 'auto',
+            marginTop: '2rem',
+            flexGrow: 1,
+            width: '90%',
          }}
       >
          <h1
@@ -88,14 +92,18 @@ const FormAddProduct = () => {
          >
             Add New Products
          </h2>
-         <div className="card is-shadowless">
+         <div className="card is-shadowless" style={formStyle}>
             <div className="card-content">
                <div className="content">
                   <form onSubmit={saveProduct}>
                      <p className="has-text-centered">{msg}</p>
-                     <div className="field">
-                        <label className="label">Name</label>
-                        <div className="control">
+                     <div className="columns" style={rowStyle}>
+                        <div className="column is-one-third">
+                           <label className="label" style={labelStyle}>
+                              Name
+                           </label>
+                        </div>
+                        <div className="column">
                            <input
                               type="text"
                               className="input"
@@ -106,9 +114,13 @@ const FormAddProduct = () => {
                         </div>
                      </div>
 
-                     <div className="field">
-                        <label className="label">Description</label>
-                        <div className="control">
+                     <div className="columns" style={rowStyle}>
+                        <div className="column is-one-third">
+                           <label className="label" style={labelStyle}>
+                              Description
+                           </label>
+                        </div>
+                        <div className="column">
                            <textarea
                               className="input"
                               value={description}
@@ -120,9 +132,13 @@ const FormAddProduct = () => {
                         </div>
                      </div>
 
-                     <div className="field">
-                        <label className="label">Price</label>
-                        <div className="control">
+                     <div className="columns" style={rowStyle}>
+                        <div className="column is-one-third">
+                           <label className="label" style={labelStyle}>
+                              Price
+                           </label>
+                        </div>
+                        <div className="column">
                            <input
                               type="number"
                               className="input"
@@ -135,9 +151,13 @@ const FormAddProduct = () => {
                         </div>
                      </div>
 
-                     <div className="field">
-                        <label className="label">Stok</label>
-                        <div className="control">
+                     <div className="columns" style={rowStyle}>
+                        <div className="column is-one-third">
+                           <label className="label" style={labelStyle}>
+                              Stok
+                           </label>
+                        </div>
+                        <div className="column">
                            <input
                               type="number"
                               className="input"
@@ -150,25 +170,31 @@ const FormAddProduct = () => {
                         </div>
                      </div>
 
-                     <div className="field">
-                        <label className="label">Picture</label>
-                        <div className="file has-name is-fullwidth">
-                           <label className="file-label">
-                              <input
-                                 className="file-input"
-                                 type="file"
-                                 onChange={handleFileInputChange}
-                              />
-                              <span className="file-cta">
-                                 <span className="file-icon">
-                                    <i className="fas fa-upload"></i>
-                                 </span>
-                                 <span className="file-label">
-                                    Choose a file…
-                                 </span>
-                              </span>
-                              <span className="file-name">{fileName}</span>
+                     <div className="columns" style={rowStyle}>
+                        <div className="column is-one-third">
+                           <label className="label" style={labelStyle}>
+                              Picture
                            </label>
+                        </div>
+                        <div className="column">
+                           <div className="file has-name is-fullwidth">
+                              <label className="file-label">
+                                 <input
+                                    className="file-input"
+                                    type="file"
+                                    onChange={handleFileInputChange}
+                                 />
+                                 <span className="file-cta">
+                                    <span className="file-icon">
+                                       <i className="fas fa-upload"></i>
+                                    </span>
+                                    <span className="file-label">
+                                       Choose a file…
+                                    </span>
+                                 </span>
+                                 <span className="file-name">{fileName}</span>
+                              </label>
+                           </div>
                         </div>
                      </div>
 
@@ -178,9 +204,13 @@ const FormAddProduct = () => {
                         </figure>
                      )}
 
-                     <div className="field">
-                        <label className="label">Category</label>
-                        <div className="control">
+                     <div className="columns" style={rowStyle}>
+                        <div className="column is-one-third">
+                           <label className="label" style={labelStyle}>
+                              Category
+                           </label>
+                        </div>
+                        <div className="column">
                            <div className="select is-fullwidth">
                               <select
                                  value={categoryId}
@@ -201,20 +231,57 @@ const FormAddProduct = () => {
                            </div>
                         </div>
                      </div>
-
-                     <div className="field">
-                        <div className="control">
-                           <button type="submit" className="button is-success">
-                              Save
-                           </button>
-                        </div>
-                     </div>
                   </form>
                </div>
             </div>
          </div>
+
+         <div className="columns">
+            <div className="column is-offset-one-third">
+               <button
+                  type="submit"
+                  className="button is-success"
+                  style={buttonStyle}
+               >
+                  Save
+               </button>
+            </div>
+         </div>
       </div>
    );
+};
+
+const formStyle = {
+   backgroundColor: '#f8f1e4', // Matches the background color of the web page
+   borderRadius: '0px',
+   border: '2px solid black',
+   padding: '1rem',
+   width: '70%',
+};
+
+const rowStyle = {
+   borderBottom: '2px solid black', // Line separator between columns
+   paddingBottom: '1rem',
+   marginBottom: '0.7rem',
+};
+
+const labelStyle = {
+   fontSize: '1.5rem',
+};
+
+const buttonStyle = {
+   backgroundColor: '#2CAFE8',
+   color: 'black',
+   padding: '0.3rem 1rem',
+   borderRadius: '9999px',
+   border: '2px solid black',
+   fontSize: '1.2rem',
+   fontWeight: 'bold',
+   display: 'block',
+   marginTop: '1.5rem',
+   marginLeft: '9rem',
+   marginRight: '2rem',
+   width: 'fit-content',
 };
 
 export default FormAddProduct;
