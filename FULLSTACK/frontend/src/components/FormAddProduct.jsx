@@ -15,7 +15,6 @@ const FormAddProduct = () => {
    const [msg, setMsg] = useState('');
    const navigate = useNavigate();
 
-   // Handle file input change
    const handleFileInputChange = event => {
       const image = event.target.files[0];
       if (image) {
@@ -25,7 +24,6 @@ const FormAddProduct = () => {
       }
    };
 
-   // Save product
    const saveProduct = async event => {
       event.preventDefault();
       const formData = new FormData();
@@ -48,7 +46,6 @@ const FormAddProduct = () => {
       }
    };
 
-   // Fetch categories
    useEffect(() => {
       getCategory();
    }, []);
@@ -68,30 +65,43 @@ const FormAddProduct = () => {
             fontFamily: "'Jersey 25', sans-serif",
             margin: 'auto',
             marginTop: '2rem',
-            flexGrow: 1,
-            width: '90%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            width: '100%',
+            minHeight: '100vh',
          }}
       >
-         <h1
+         <div
             style={{
-               fontSize: '2.5rem',
-               fontWeight: 'bold',
-               marginBottom: '1rem',
-               textAlign: 'left',
+               margin: 'auto',
+               marginTop: '2rem',
+               flexGrow: 1,
+               width: '90%',
             }}
          >
-            Add Products
-         </h1>
-         <h2
-            style={{
-               fontSize: '2.0rem',
-               fontWeight: 'bold',
-               marginBottom: '2rem',
-               textAlign: 'left',
-            }}
-         >
-            Add New Products
-         </h2>
+            <h1
+               style={{
+                  fontSize: '2.5rem',
+                  fontWeight: 'bold',
+                  marginBottom: '1rem',
+                  textAlign: 'left',
+               }}
+            >
+               Add Products
+            </h1>
+            <h2
+               style={{
+                  fontSize: '2rem',
+                  fontWeight: 'bold',
+                  marginBottom: '1.5rem',
+               }}
+            >
+               Add New Products
+            </h2>
+         </div>
+
          <div className="card is-shadowless" style={formStyle}>
             <div className="card-content">
                <div className="content">
@@ -110,9 +120,12 @@ const FormAddProduct = () => {
                               value={name}
                               onChange={event => setName(event.target.value)}
                               placeholder="Product Name"
+                              style={inputStyle}
                            />
                         </div>
                      </div>
+
+                     <hr style={hrStyle} />
 
                      <div className="columns" style={rowStyle}>
                         <div className="column is-one-third">
@@ -128,9 +141,16 @@ const FormAddProduct = () => {
                                  setDescription(event.target.value)
                               }
                               placeholder="Description"
+                              style={{
+                                 ...inputStyle,
+                                 resize: 'none',
+                                 height: '80px',
+                              }}
                            />
                         </div>
                      </div>
+
+                     <hr style={hrStyle} />
 
                      <div className="columns" style={rowStyle}>
                         <div className="column is-one-third">
@@ -147,9 +167,12 @@ const FormAddProduct = () => {
                                  setPrice(parseInt(event.target.value))
                               }
                               placeholder="Price"
+                              style={inputStyle}
                            />
                         </div>
                      </div>
+
+                     <hr style={hrStyle} />
 
                      <div className="columns" style={rowStyle}>
                         <div className="column is-one-third">
@@ -166,9 +189,12 @@ const FormAddProduct = () => {
                                  setStok(parseInt(event.target.value))
                               }
                               placeholder="Stok"
+                              style={inputStyle}
                            />
                         </div>
                      </div>
+
+                     <hr style={hrStyle} />
 
                      <div className="columns" style={rowStyle}>
                         <div className="column is-one-third">
@@ -183,6 +209,7 @@ const FormAddProduct = () => {
                                     className="file-input"
                                     type="file"
                                     onChange={handleFileInputChange}
+                                    style={inputStyle} // Gaya font diterapkan
                                  />
                                  <span className="file-cta">
                                     <span className="file-icon">
@@ -204,6 +231,8 @@ const FormAddProduct = () => {
                         </figure>
                      )}
 
+                     <hr style={hrStyle} />
+
                      <div className="columns" style={rowStyle}>
                         <div className="column is-one-third">
                            <label className="label" style={labelStyle}>
@@ -217,6 +246,7 @@ const FormAddProduct = () => {
                                  onChange={event =>
                                     setCategoryId(event.target.value)
                                  }
+                                 style={inputStyle}
                               >
                                  <option value="">Select Category</option>
                                  {categories.map(category => (
@@ -236,33 +266,43 @@ const FormAddProduct = () => {
             </div>
          </div>
 
-         <div className="columns">
-            <div className="column is-offset-one-third">
-               <button
-                  type="submit"
-                  className="button is-success"
-                  style={buttonStyle}
-               >
-                  Save
-               </button>
-            </div>
+         <div
+            style={{
+               width: '80%',
+               display: 'flex',
+               justifyContent: 'flex-start',
+               marginLeft: '20rem',
+            }}
+         >
+            <button
+               type="submit"
+               className="button is-success"
+               style={buttonStyle}
+               onClick={saveProduct}
+            >
+               Tambah Produk
+            </button>
          </div>
       </div>
    );
 };
 
 const formStyle = {
-   backgroundColor: '#f8f1e4', // Matches the background color of the web page
-   borderRadius: '0px',
+   backgroundColor: '#f8f1e4',
+   borderRadius: '4px',
    border: '2px solid black',
    padding: '1rem',
-   width: '70%',
+   width: '55%',
 };
 
 const rowStyle = {
-   borderBottom: '2px solid black', // Line separator between columns
-   paddingBottom: '1rem',
-   marginBottom: '0.7rem',
+   paddingBottom: '0.1rem',
+   marginBottom: '0.1rem',
+};
+
+const hrStyle = {
+   border: '1px solid #000',
+   margin: '0.8rem 0',
 };
 
 const labelStyle = {
@@ -279,9 +319,12 @@ const buttonStyle = {
    fontWeight: 'bold',
    display: 'block',
    marginTop: '1.5rem',
-   marginLeft: '9rem',
-   marginRight: '2rem',
-   width: 'fit-content',
+   width: '10%',
+};
+
+const inputStyle = {
+   fontFamily: "'Josefin Sans', sans-serif",
+   fontSize: '1rem',
 };
 
 export default FormAddProduct;
