@@ -11,7 +11,8 @@ import InfoProducts from './pages/InfoProducts';
 import Categories from './pages/Categories';
 import AddCategory from './pages/AddCategory';
 import EditCategory from './pages/EditCategory';
-import ItemList from './components/itemList'
+import Shop from './pages/App';
+import Display from './pages/Display';
 
 function App() {
    return (
@@ -29,7 +30,8 @@ function App() {
             <Route path="/category" element={<Categories />} />
             <Route path="/category/add" element={<AddCategory />} />
             <Route path="/category/edit/:id" element={<EditCategory />} />
-            <Route path="/Snaggle" element={<ItemList />} />
+            <Route path="/Snaggle" element={<Shop />} />
+            <Route path="/Display" element={<Display />} />
          </Routes>
       </BrowserRouter>
    );

@@ -3,54 +3,50 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { IoLogoWhatsapp } from 'react-icons/io5';
 
-const InfoProduct = () => {
-   const { id } = useParams(); // Mendapatkan ID produk dari URL
-   const [product, setProduct] = useState(null);
-   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState(null);
+const InfoItem = () => {
+   const { id } = useParams();
+   const [product, setProduct] = useState(null); // Update state to null instead of array
 
    useEffect(() => {
       const getProductById = async () => {
-         setLoading(true);  // Set loading ke true sebelum mengambil data
-         setError(null);    // Reset error sebelum mencoba mengambil data
-
          try {
-            const response = await axios.get(`http://localhost:5000/product/${id}`);
-            setProduct(response.data);  // Set data produk yang diterima
+            const response = await axios.get(
+               `http://localhost:5000/product/${id}`
+            );
+            setProduct(response.data);
          } catch (error) {
-            setError('Error fetching product data');  // Set pesan error jika gagal
-         } finally {
-            setLoading(false);  // Set loading ke false setelah request selesai
+            console.error('Error fetching product:', error);
          }
       };
 
       getProductById();
-   }, [id]);  // Dependency array untuk melakukan request saat ID berubah
-
-   if (loading) {
-      return <p>Loading...</p>;  // Menampilkan loading saat data masih diambil
-   }
-
-   if (error) {
-      return <p>{error}</p>;  // Menampilkan pesan error jika ada masalah saat fetching
-   }
+   }, [id]);
 
    if (!product) {
-      return <p>Product not found!</p>;  // Jika produk tidak ditemukan
+      return <p>Loading...</p>; // Change loading message for better UX
    }
 
    return (
-      <div className="columns is-vcentered is-centered mt-6" style={{ margin: 'auto', width: '90%' }}>
+      <div
+         className="columns is-vcentered is-centered mt-6"
+         style={{ margin: 'auto', width: '90%' }}
+      >
          <div className="column is-one-third" style={{ marginRight: '50px' }}>
-            <figure className="image is-square" style={{ display: 'flex', justifyContent: 'center' }}>
+            <figure
+               className="image is-square"
+               style={{ display: 'flex', justifyContent: 'center' }}
+            >
                <img
-                  src={product.url || 'https://via.placeholder.com/350'}
+                  src={product.url || ''}
                   alt={product.name}
-                  style={{ maxWidth: '350px', height: 'auto' }}
+                  style={{ maxWidth: '350px', height: 'auto' }} // Adjust size for better layout
                />
             </figure>
          </div>
-         <div className="column is-two-thirds" style={{ textAlign: 'left', marginTop: '0px' }}>
+         <div
+            className="column is-two-thirds"
+            style={{ textAlign: 'left', marginTop: '0px' }}
+         >
             <h1
                style={{
                   fontFamily: "'Josefin Sans', sans-serif",
@@ -90,9 +86,12 @@ const InfoProduct = () => {
                Stock: {product.stok}
             </h2>
 
-            <div className="field is-grouped mt-5" style={{ textAlign: 'left' }}>
+            <div
+               className="field is-grouped mt-5"
+               style={{ textAlign: 'left' }}
+            >
                <a
-                  href={`https://wa.me/${product.whatsappNumber || '089645759299'}`}
+                  href="https://wa.me/089645759299"
                   className="button is-primary is-rounded"
                   style={{
                      fontFamily: "'Josefin Sans', sans-serif",
@@ -102,7 +101,7 @@ const InfoProduct = () => {
                   }}
                >
                   <IoLogoWhatsapp className="mr-4" />
-                  <span>{product.whatsappNumber || '089645759299'}</span>
+                  <span>089645759299</span>
                </a>
             </div>
 
@@ -111,7 +110,7 @@ const InfoProduct = () => {
                style={{
                   fontFamily: "'Josefin Sans', sans-serif",
                   textAlign: 'left',
-                  fontSize: '20px',
+                  fontSize: '20px', // Slightly reduce font size for description
                   color: 'black',
                   marginBottom: '13px',
                }}
@@ -123,4 +122,4 @@ const InfoProduct = () => {
    );
 };
 
-export default InfoProduct;
+export default InfoItem;
