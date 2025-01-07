@@ -209,13 +209,15 @@ const FormAddProduct = () => {
                                     className="file-input"
                                     type="file"
                                     onChange={handleFileInputChange}
-                                    style={inputStyle} // Gaya font diterapkan
                                  />
                                  <span className="file-cta">
                                     <span className="file-icon">
                                        <i className="fas fa-upload"></i>
                                     </span>
-                                    <span className="file-label">
+                                    <span
+                                       className="file-label"
+                                       style={inputStyle}
+                                    >
                                        Choose a file…
                                     </span>
                                  </span>
