@@ -50,6 +50,13 @@ const CategoryList = () => {
          >
             List Of Categories
          </h2>
+         <Link
+            to={'/category/add'}
+            className="button is-info mb-2"
+            style={buttonStyle}
+         >
+            Add New
+         </Link>
          <table className="table is-striped is-fullwidth" style={tableStyle}>
             <thead>
                <tr>
@@ -83,13 +90,6 @@ const CategoryList = () => {
                ))}
             </tbody>
          </table>
-         <Link
-            to={'/category/add'}
-            className="button is-info mb-2"
-            style={buttonStyle}
-         >
-            Add New
-         </Link>
       </div>
    );
 };
@@ -100,6 +100,7 @@ const tableStyle = {
    borderCollapse: 'collapse',
    marginBottom: '1.5rem',
    border: '2px solid black',
+   marginTop: '2rem',
 };
 
 const tableHeaderStyle = {

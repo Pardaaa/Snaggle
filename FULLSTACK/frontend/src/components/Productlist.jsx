@@ -50,6 +50,13 @@ const Productlist = () => {
          >
             List of Products
          </h2>
+         <Link
+            to={'/products/add'}
+            className="button is-info mb-2"
+            style={buttonStyle}
+         >
+            Add New
+         </Link>
          <table className="table is-striped is-fullwidth" style={tableStyle}>
             <thead>
                <tr>
@@ -96,13 +103,6 @@ const Productlist = () => {
                ))}
             </tbody>
          </table>
-         <Link
-            to={'/products/add'}
-            className="button is-info mb-2"
-            style={buttonStyle}
-         >
-            Add New
-         </Link>
       </div>
    );
 };
@@ -112,6 +112,7 @@ const tableStyle = {
    margin: '0 auto',
    borderCollapse: 'collapse',
    marginBottom: '1.5rem',
+   marginTop: '2rem',
    border: '2px solid black',
 };
 
