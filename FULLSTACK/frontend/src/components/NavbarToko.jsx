@@ -24,7 +24,7 @@ const NavbarToko = () => {
             </div>
 
             {/* Logo */}
-            <Link to="/snaggle" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold', fontSize: '1.5rem' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold', fontSize: '1.5rem' }}>
                 Snaggle
             </Link>
 

@@ -13,6 +13,8 @@ import AddCategory from './pages/AddCategory';
 import EditCategory from './pages/EditCategory';
 import Shop from './pages/App';
 import Display from './pages/Display';
+import './styles/app.css';
+import DetailProduct from "./pages/ProductDetail";
 
 function App() {
    return (
@@ -32,6 +34,7 @@ function App() {
             <Route path="/category/edit/:id" element={<EditCategory />} />
             <Route path="/Snaggle" element={<Shop />} />
             <Route path="/Display" element={<Display />} />
+            <Route path="/detailproduct/:id" element={<DetailProduct />} />
          </Routes>
       </BrowserRouter>
    );

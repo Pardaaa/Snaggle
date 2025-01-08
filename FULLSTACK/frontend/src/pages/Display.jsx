@@ -6,12 +6,10 @@ import Productlist from "../components/itemList";
 const Display = ({ children }) => {
     return (
        <React.Fragment>
-          {/* Header */}
           <NavbarToko />
 
           <Productlist />
 
-          {/* Footer */}
           <FooterToko />
        </React.Fragment>
     );

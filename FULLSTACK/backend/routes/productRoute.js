@@ -7,6 +7,7 @@ import {
    deleteProduct,
 } from '../controllers/productController.js';
 import { verifyUser, adminOnly } from '../middleware/authUser.js';
+
 const router = express.Router();
 
 router.get('/product', getProduct);

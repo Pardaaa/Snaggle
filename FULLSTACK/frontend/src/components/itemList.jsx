@@ -1,125 +1,198 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { IoLogoWhatsapp } from 'react-icons/io5';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const InfoItem = () => {
-   const { id } = useParams();
-   const [product, setProduct] = useState(null); // Update state to null instead of array
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [sortOrder, setSortOrder] = useState(""); // "asc" or "desc"
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [categories, setCategories] = useState([]);
 
-   useEffect(() => {
-      const getProductById = async () => {
-         try {
-            const response = await axios.get(
-               `http://localhost:5000/product/${id}`
-            );
-            setProduct(response.data);
-         } catch (error) {
-            console.error('Error fetching product:', error);
-         }
-      };
+  useEffect(() => {
+    // Fetch categories
+    axios
+      .get("http://localhost:5000/category")
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => console.error("Error fetching categories:", error));
 
-      getProductById();
-   }, [id]);
+    // Fetch products
+    axios
+      .get("http://localhost:5000/product")
+      .then((response) => {
+        console.log("Fetched products:", response.data); // Log the entire response
+        setProducts(response.data);
+        setFilteredProducts(response.data);
+      })
+      .catch((error) => console.error("Error fetching products:", error));
+  }, []);
 
-   if (!product) {
-      return <p>Loading...</p>; // Change loading message for better UX
-   }
+  const handleSort = (order) => {
+    setSortOrder(order);
+    const sorted = [...filteredProducts].sort((a, b) => {
+      if (order === "asc") return a.price - b.price;
+      return b.price - a.price;
+    });
+    setFilteredProducts(sorted);
+  };
 
-   return (
-      <div
-         className="columns is-vcentered is-centered mt-6"
-         style={{ margin: 'auto', width: '90%' }}
-      >
-         <div className="column is-one-third" style={{ marginRight: '50px' }}>
-            <figure
-               className="image is-square"
-               style={{ display: 'flex', justifyContent: 'center' }}
+  const handleCategoryFilter = (categoryId) => {
+    console.log("Selected categoryId:", categoryId); // Log the selected categoryId
+    setSelectedCategory(categoryId);
+  
+    if (categoryId) {
+      const filtered = products.filter((product) => {
+        console.log("Product object:", product); // Log each product object
+        return product.categoryId === categoryId;
+      });
+      console.log("Filtered products:", filtered); // Log the filtered results
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(products); // Show all products when no category is selected
+    }
+  };    
+
+  return (
+    <div style={styles.container}>
+      {/* Sidebar Filters */}
+      <div style={styles.sidebar}>
+        <div style={styles.filterSection}>
+          <h3 style={styles.filterTitle}>Harga</h3>
+          <div style={styles.filterOptions}>
+            <p
+              onClick={() => handleSort("asc")}
+              style={{
+                ...styles.filterText,
+                fontWeight: sortOrder === "asc" ? "bold" : "normal",
+                color: "black",
+              }}
             >
-               <img
-                  src={product.url || ''}
-                  alt={product.name}
-                  style={{ maxWidth: '350px', height: 'auto' }} // Adjust size for better layout
-               />
-            </figure>
-         </div>
-         <div
-            className="column is-two-thirds"
-            style={{ textAlign: 'left', marginTop: '0px' }}
-         >
-            <h1
-               style={{
-                  fontFamily: "'Josefin Sans', sans-serif",
-                  fontSize: '34px',
-                  fontWeight: 'bold',
-                  textAlign: 'left',
-                  color: 'black',
-                  marginBottom: '16px',
-               }}
+              Termurah ke Termahal
+            </p>
+            <p
+              onClick={() => handleSort("desc")}
+              style={{
+                ...styles.filterText,
+                fontWeight: sortOrder === "desc" ? "bold" : "normal",
+                color: "black",
+              }}
             >
-               {product.name}
-            </h1>
-
-            <h2
-               style={{
-                  fontFamily: "'Josefin Sans', sans-serif",
-                  fontSize: '30px',
-                  fontWeight: 'normal',
-                  textAlign: 'left',
-                  color: 'black',
-                  marginBottom: '10px',
-               }}
+              Termahal ke Termurah
+            </p>
+          </div>
+        </div>
+        <div style={styles.filterSection}>
+          <h3 style={styles.filterTitle}>Kategori</h3>
+          <div style={styles.filterOptions}>
+            <p
+              onClick={() => handleCategoryFilter("")}
+              style={{
+                ...styles.filterText,
+                fontWeight: selectedCategory === "" ? "bold" : "normal",
+                color: "black",
+              }}
             >
-               Rp.{product.price}
-            </h2>
-
-            <h2
-               style={{
-                  fontFamily: "'Josefin Sans', sans-serif",
-                  fontSize: '25px',
-                  fontWeight: 'bold',
-                  textAlign: 'left',
-                  color: 'black',
-                  marginBottom: '10px',
-               }}
-            >
-               Stock: {product.stok}
-            </h2>
-
-            <div
-               className="field is-grouped mt-5"
-               style={{ textAlign: 'left' }}
-            >
-               <a
-                  href="https://wa.me/089645759299"
-                  className="button is-primary is-rounded"
-                  style={{
-                     fontFamily: "'Josefin Sans', sans-serif",
-                     color: 'black',
-                     display: 'flex',
-                     alignItems: 'center',
-                  }}
-               >
-                  <IoLogoWhatsapp className="mr-4" />
-                  <span>089645759299</span>
-               </a>
-            </div>
-
-            <div
-               className="content mt-5"
-               style={{
-                  fontFamily: "'Josefin Sans', sans-serif",
-                  textAlign: 'left',
-                  fontSize: '20px', // Slightly reduce font size for description
-                  color: 'black',
-                  marginBottom: '13px',
-               }}
-            >
-               {product.description}
-            </div>
-         </div>
+              Semua
+            </p>
+            {categories.map((category) => (
+              <p
+                key={category.id}
+                onClick={() => handleCategoryFilter(category.id)}
+                style={{
+                  ...styles.filterText,
+                  fontWeight: selectedCategory === category.id ? "bold" : "normal",
+                  color: "black",
+                }}
+              >
+                {category.name}
+              </p>
+            ))}
+          </div>
+        </div>
       </div>
-   );
+
+      {/* Product Grid */}
+      <div style={styles.grid}>
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product, index) => (
+            <div key={index} style={styles.card}>
+              <img
+                src={`http://localhost:5000/images/${product.picture}`}
+                alt={product.name}
+                style={styles.image}
+              />
+              <h3 style={styles.title}>{product.name}</h3>
+              <p style={styles.price}>Rp. {product.price.toLocaleString()}</p>
+            </div>
+          ))
+        ) : (
+          <p style={styles.loading}>Produk tidak ditemukan</p>
+        )}
+      </div>
+    </div>
+  );
 };
 
-export default InfoItem;
+const styles = {
+  container: {
+    display: "flex",
+    fontFamily: "Arial, sans-serif",
+  },
+  sidebar: {
+    width: "20%",
+    padding: "20px",
+    borderRight: "1px solid #ddd",
+  },
+  filterSection: {
+    marginBottom: "20px",
+  },
+  filterTitle: {
+    borderBottom: "2px solid black", // Garis bawah pada judul
+    paddingBottom: "5px",
+    marginBottom: "10px",
+    fontSize: "1.2rem",
+  },
+  filterOptions: {
+    paddingLeft: "20px", // Tab ke kanan untuk isi
+  },
+  filterText: {
+    margin: "5px 0",
+    cursor: "pointer",
+    color: "#007bff",
+    textDecoration: "none",
+  },
+  grid: {
+    width: "80%",
+    padding: "20px",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+    gap: "20px",
+  },
+  card: {
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+    padding: "15px",
+    textAlign: "center",
+  },
+  image: {
+    width: "100%",
+    height: "auto",
+    marginBottom: "10px",
+  },
+  title: {
+    fontSize: "1.2rem",
+    margin: "10px 0",
+  },
+  price: {
+    color: "#E53935",
+    fontSize: "1.1rem",
+    fontWeight: "bold",
+  },
+  loading: {
+    gridColumn: "1 / -1",
+    textAlign: "center",
+  },
+};
+
+export default ProductList;
