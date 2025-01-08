@@ -65,6 +65,7 @@ const CustomerProducts = () => {
     return (
         <div style={{ minHeight:'100vh', margin: '0', padding: '0'}}>
             <div style={containerStyle}>
+                <div style={emptyBoxStyle}></div>
                 <header style={headerStyle}>
                     <nav style={navStyle}>
                         <NavLink to="/customer" style={navLinkStyle} className="navbar-item" activeStyle={{ color: '#416B39' }}>
@@ -158,7 +159,6 @@ const containerStyle = {
    display: 'grid',
    gridTemplateColumns: '2fr 6fr',
    gap: '20px',
-   padding: '20px',
    backgroundColor: '#f8f1e4',
    fontFamily: 'Josefin Sans, sans-serif',
    alignItems: 'start',
@@ -177,9 +177,14 @@ const headerStyle = {
 };
 
 const logoStyle = {
-   fontSize: '24px',
-   fontWeight: 'bold',
-   color: '#333',
+    fontSize: '2.5rem',
+    fontWeight: '400',
+    fontStyle: 'bold',
+    color: '#000',
+    position: 'absolute', 
+    left: '50%',
+    transform: 'translateX(-50%)',
+    fontFamily: 'Jersey 25, serif',
 };
 
 const navStyle = {
@@ -235,6 +240,13 @@ const filterStyle = {
    alignItems: 'flex-start', 
 };
 
+const emptyBoxStyle = {
+    gridColumn: 'span 2',
+    height: '50px',
+    backgroundColor: '#F1C9F9',
+
+ };
+ 
 const filterTitleStyle = {
    fontSize: '20px',
    fontWeight: 'bold',

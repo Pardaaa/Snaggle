@@ -29,7 +29,7 @@ const CustomerHome = () => {
                 </div> 
                 <div style={{ position: "relative", textAlign: "center", margin: "2rem 0", fontSize: "1.5rem", fontWeight: "bold" }}>
                     <img src={bg} style={{ width: "100%", height: "600px" }} alt="Background" />
-                    <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: "white", fontSize: "3rem", 
+                    <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontSize: "2.5rem", color: "black", padding: "2rem", fontWeight: '400', fontStyle: 'bold', color: '#FFF', fontFamily: 'Jersey 25, serif',
                     }}>
                         Butuh rekomendasi? Cek sini!
                     </div>
@@ -96,7 +96,7 @@ const CustomerHome = () => {
                 <h2>ABOUT US</h2> 
                 <p> Welcome to Snaggle, website paling hits buat cari pakaian-pakaian kece dan super catchy yang cocok banget buat kamu! Di sini, kamu bisa temukan berbagai kategori, mulai dari fashion stylish sampai outfit-outfit unik lainnya. Pokoknya, belanja di Snaggle bikin pengalaman makin seru dan pastinya gampang banget. Yuk, let's snag something cool! </p> 
             </div> 
-            <footer style={{ textAlign: "center", fontSize: "1rem", color: "black", padding: "2rem", backgroundColor: "#F1C9F9",marginTop: "auto" }} > 
+            <footer style={{ textAlign: "center", fontSize: "2.5rem", color: "black", padding: "2rem", fontWeight: '400', fontStyle: 'bold', color: '#000', fontFamily: 'Jersey 25, serif',backgroundColor: '#F1C9F9',marginBottom: "-30px" }} > 
                 <h2>Snaggle</h2> 
             </footer> 
         </div> 
@@ -165,5 +165,6 @@ const categoryImageStyle = {
     boxShadow: "5px 10px 10px rgba(0, 0, 0, 0.1)", 
 
 };
+
 
 export default CustomerHome;

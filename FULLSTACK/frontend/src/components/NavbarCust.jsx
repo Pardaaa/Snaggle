@@ -8,7 +8,6 @@ const Navbar = () => {
       display: 'grid',
       gridTemplateColumns: '2fr 6fr',
       gap: '20px',
-      padding: '20px',
       backgroundColor: '#f8f1e4',
       fontFamily: 'Josefin Sans, sans-serif',
       alignItems: 'start',
@@ -25,12 +24,15 @@ const Navbar = () => {
    };
    
    const logoStyle = {
-      fontSize: '24px',
-      fontWeight: 'bold',
-      color: '#333',
+      fontSize: '2.5rem',
+      fontWeight: '400',
+      fontStyle: 'bold',
+      color: '#000',
       position: 'absolute', 
       left: '50%',
       transform: 'translateX(-50%)',
+      fontFamily: 'Jersey 25, serif',
+
    };
    
    const navStyle = {
@@ -44,23 +46,28 @@ const Navbar = () => {
       fontSize: '18px',
       backgroundColor: 'transparent'
    };
+   const emptyBoxStyle = {
+      gridColumn: 'span 2',
+      height: '50px',
+      backgroundColor: '#F1C9F9',
 
-   return (
-      
+   };
+
+   return (  
       <div style={containerStyle}>
-            <header style={headerStyle}>
-                <nav style={navStyle}>
+         <div style={emptyBoxStyle}></div>
+
+         <header style={headerStyle}>
+            <nav style={navStyle}>
                 <NavLink to="/customer" style={navLinkStyle} className="navbar-item" activeStyle={{ color: '#416B39' }}>
                   Home
                </NavLink>
                <NavLink to="/customer/product" style={navLinkStyle} className="navbar-item" activeStyle={{ color: '#416B39' }}>
                   Products
                </NavLink>
-                </nav>
-                <h1 style={logoStyle}>Snaggle</h1>
-                
-    
-            </header>
+            </nav>
+            <h1 style={logoStyle}>Snaggle</h1>      
+         </header>
    </div>
    );
 
