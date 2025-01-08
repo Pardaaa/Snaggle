@@ -1,5 +1,8 @@
 import React from "react";
-import backgroundImage from '../Images/background.png'; 
+import jeans from '../Images/jeans.jpg';
+import baju from '../Images/bajuu.jpg';
+import cardigan from '../Images/cardigan.jpg';
+import bg from '../Images/bg.jpg'; 
 
 const CustomerHome = () => {
     const searchStyle = {
@@ -75,7 +78,7 @@ const CustomerHome = () => {
                     <button style={searchButtonStyle}>Telusuri</button>
                 </div> 
                 <div style={{ position: "relative", textAlign: "center", margin: "2rem 0", fontSize: "1.5rem", fontWeight: "bold" }}>
-                    <img src={backgroundImage} style={{ width: "100%", height: "600px" }} alt="Background" />
+                    <img src={bg} style={{ width: "100%", height: "600px" }} alt="Background" />
                     <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: "white", fontSize: "3rem", 
                     }}>
                         Butuh rekomendasi? Cek sini!
@@ -85,7 +88,7 @@ const CustomerHome = () => {
                 <div style={categoriesStyle}> 
                     <div style={categoryCardStyle}>
                         <div style={{ position: "relative" }}>
-                            <img src={""} alt="Jeans" style={categoryImageStyle} />
+                            <img src={jeans} alt="Jeans" style={categoryImageStyle} />
                             <h2 style={{
                                 position: "absolute",
                                 top: "50%",
@@ -102,7 +105,7 @@ const CustomerHome = () => {
  
                     <div style={categoryCardStyle}>
                         <div style={{ position: "relative" }}>
-                            <img src={""} alt="Jeans" style={categoryImageStyle} />
+                            <img src={cardigan} alt="Jeans" style={categoryImageStyle} />
                             <h2 style={{
                                 position: "absolute",
                                 top: "50%",
@@ -118,7 +121,7 @@ const CustomerHome = () => {
                     </div>
                     <div style={categoryCardStyle}>
                         <div style={{ position: "relative" }}>
-                            <img src={""} alt="Jeans" style={categoryImageStyle} />
+                            <img src={baju} alt="Jeans" style={categoryImageStyle} />
                             <h2 style={{
                                 position: "absolute",
                                 top: "50%",

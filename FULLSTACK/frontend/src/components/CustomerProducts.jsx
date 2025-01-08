@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import backgroundImage from '../Images/background.png'; 
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
@@ -111,7 +110,7 @@ const CustomerProducts = () => {
                 .map(product => (
                     <Link key={product.uuid} to={`/customer/product/${product.uuid}`} style={productCardStyle}>
                         <img
-                            src={''}
+                            src={product.picture}
                             alt={product.name}
                             style={productImageStyle}
                         />
@@ -184,7 +183,7 @@ const searchInputStyle = {
    outline: 'none',
    width: '300px',
    fontSize: '1rem',
-   color: 'transparent'
+   backgroundColor:'transparent',
 };
 
 const searchIconStyle = {
