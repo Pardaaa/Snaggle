@@ -15,6 +15,9 @@ import Shop from './pages/App';
 import Display from './pages/Display';
 import './styles/app.css';
 import DetailProduct from "./pages/ProductDetail";
+import CustomerHome from './pages/CustomerHome';
+import CustomerProducts from './components/CustomerProducts';
+import ProductCust from './pages/ProductCust';
 
 function App() {
    return (
@@ -35,6 +38,9 @@ function App() {
             <Route path="/Snaggle" element={<Shop />} />
             <Route path="/Display" element={<Display />} />
             <Route path="/detailproduct/:id" element={<DetailProduct />} />
+            <Route path="/customer" element={<CustomerHome />} />
+            <Route path="/customer/product" element={<CustomerProducts />} />
+            <Route path="/customer/product/:id" element={<ProductCust />} />
          </Routes>
       </BrowserRouter>
    );
