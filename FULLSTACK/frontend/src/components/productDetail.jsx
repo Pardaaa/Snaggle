@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { FaWhatsapp } from 'react-icons/fa'; 
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -34,27 +35,32 @@ const ProductDetail = () => {
             padding: '20px',
             maxWidth: '1200px', 
             width: '100%',
-            alignItems: 'center'
+            alignItems: 'center',
         },
         item: {
             flex: '1', 
-            margin: '0 20px',
+            margin: '0 30px',
         },
-        image: {
-            width: '500px', 
-            borderRadius: '8px', 
-            height: '300px',
-        },
+        image : {
+            width: '100%',
+            height: '250px',
+            objectFit: 'cover',
+            borderRadius: '10px',
+            boxShadow: '0 5px 5px rgba(0, 0, 0, 0.4)',
+         
+         },
         description: {
             flex: '2', 
             textAlign: 'justify', 
+            color: '#000',
         },
     };
 
     return (
         <div style={styles.container}>
             <div style={styles.item}>
-                <img src={''} alt={product.name} style={styles.image} />
+                <img src={`http://localhost:5000/images/${product.picture}`} alt={product.name} style={styles.image} />
+                
             </div>
             <div style={styles.item}>
                 <h1 style={{ fontWeight: 'bold', color:'black', fontSize: '2rem'}}>{product.name}</h1>
@@ -64,10 +70,13 @@ const ProductDetail = () => {
                     style={{ 
                         textDecoration: 'none', 
                         color: 'black', 
-                        padding: '10px 20px', 
-                        borderRadius: '5px' 
+                        borderRadius: '5px',
+                        marginTop: '20px',
+                        display: 'flex',
+                        alignItems:'center',
+                        gap: '10px',
                     }}
-                >
+                > <FaWhatsapp />
                     Hubungi via WhatsApp
                 </a>
             </div>

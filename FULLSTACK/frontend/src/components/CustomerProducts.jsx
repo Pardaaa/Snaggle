@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 
 const CustomerProducts = () => {
-
+    const location = useLocation();
+    const navigate = useNavigate();
+    const params = new URLSearchParams(location.search);
+    const initialCategory = params.get("category") || "";
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -15,24 +19,39 @@ const CustomerProducts = () => {
         getProducts();
         getCategories();
     }, []);
+    useEffect(() => {
+        setSelectedCategory(initialCategory);
+    }, [initialCategory]);
 
     const getProducts = async () => {
         const response = await axios.get('http://localhost:5000/product');
         setProducts(response.data);
     };
-    const handleCategoryChange = (e) => {
-        setSelectedCategory(e.target.value);
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const searchQuery = params.get("search") || "";
+        const categoryQuery = params.get("category") || "";
+    
+        setQuery(searchQuery);
+        setSelectedCategory(categoryQuery);
+    }, [location.search]);
+    
 
+    const getCategories = async () => {
+        const response = await axios.get('http://localhost:5000/category');
+        setCategories(response.data);
+     };
+     
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category);
+        navigate(`/customer/product?category=${category}`);
     };
+
     const handleSearchChange = (e) => {
         setQuery(e.target.value);
     };
 
-    const getCategories = async () => {
-        const response = await axios.get('http://localhost:5000/category');
-        const filteredCategories = response.data.filter(cat => cat.name !== 'Pengguna');
-        setCategories(filteredCategories);
-     };
+    
      const handleSortHighToLow = () => {
         setSortOrder('high-to-low');
     };
@@ -81,12 +100,15 @@ const CustomerProducts = () => {
                 </button>
 
                 <h2 style={filterTitleStyle}>Filter by</h2>
-                <select onChange={handleCategoryChange} style={filterButtonStyle}>
+                <select style={dropdownStyle}
+                    value={selectedCategory}
+                    onChange={(e) => handleCategoryChange(e.target.value)}
+                >
                     <option value="">Semua</option>
-                    {categories.map(category => (
-                        <option key={category.uuid} value={category.name}>
-                            {category.name}
-                        </option>
+                    {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                        {category.name}
+                    </option>
                     ))}
                 </select>
 
@@ -96,9 +118,10 @@ const CustomerProducts = () => {
             <main style={productGridStyle}>
             {products
                 .filter(product => 
-                    (selectedCategory === '' || product.category.name === selectedCategory) &&
+                    (selectedCategory === '' || product.category?.name?.toLowerCase() === selectedCategory.toLowerCase()) &&
                     (query === '' || product.name.toLowerCase().includes(query.toLowerCase()))
-                )                
+                )   
+                             
                 .sort((a, b) => {
                     if (sortOrder === 'high-to-low') {
                         return b.price - a.price; 
@@ -110,7 +133,7 @@ const CustomerProducts = () => {
                 .map(product => (
                     <Link key={product.uuid} to={`/customer/product/${product.uuid}`} style={productCardStyle}>
                         <img
-                            src={product.picture}
+                            src={`http://localhost:5000/images/${product.picture}`}
                             alt={product.name}
                             style={productImageStyle}
                         />
@@ -118,13 +141,19 @@ const CustomerProducts = () => {
                         <p style={productPriceStyle}>Rp. {product.price}</p>
                     </Link>
                 ))}
+                
+                {products.length === 0 && (
+                    <p style={{ textAlign: 'center', fontSize: '1.5rem' }}>Produk tidak ditemukan.</p>
+                )}
 
             </main>
         </div>
         </div>
         
     );
+    
 };
+
 
 // CSS-in-JS styles
 const containerStyle = {
@@ -175,6 +204,13 @@ const searchBarStyle = {
    position: 'relative',
 
 
+};
+const dropdownStyle = {
+    border: "none",
+    background: "transparent",
+    padding: "8px",
+    fontSize: "16px",
+    cursor: "pointer",
 };
 
 const searchInputStyle = {
@@ -248,7 +284,8 @@ const productImageStyle = {
    height: '200px',
    objectFit: 'cover',
    borderRadius: '10px',
-   boxShadow: '0 5px 5px rgba(0, 0, 0, 0.4)',
+   boxShadow: "5px 10px 10px rgba(0, 0, 0, 0.1)", 
+
 
 };
 
