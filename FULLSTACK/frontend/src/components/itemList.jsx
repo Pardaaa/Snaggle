@@ -1,33 +1,41 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [sortOrder, setSortOrder] = useState(""); // "asc" or "desc"
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
+  const [sortOrder, setSortOrder] = useState(""); // "asc" or "desc"
+  const [selectedCategory, setSelectedCategory] = useState(null); // Gunakan null untuk default
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/detailproduct/${id}`);
+  };
 
   useEffect(() => {
-    // Fetch categories
+    // Ambil data produk
+    axios
+      .get("http://localhost:5000/product")
+      .then((response) => {
+        setProducts(response.data);
+        setFilteredProducts(response.data);
+        console.log("Products:", response.data); // Cek data produk
+      })
+      .catch((error) => console.error("Error fetching products:", error));
+
+    // Ambil data kategori
     axios
       .get("http://localhost:5000/category")
       .then((response) => {
         setCategories(response.data);
+        console.log("Categories:", response.data); // Cek data kategori
       })
       .catch((error) => console.error("Error fetching categories:", error));
-
-    // Fetch products
-    axios
-      .get("http://localhost:5000/product")
-      .then((response) => {
-        console.log("Fetched products:", response.data); // Log the entire response
-        setProducts(response.data);
-        setFilteredProducts(response.data);
-      })
-      .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
+  // Fungsi untuk mengurutkan produk
   const handleSort = (order) => {
     setSortOrder(order);
     const sorted = [...filteredProducts].sort((a, b) => {
@@ -37,21 +45,21 @@ const ProductList = () => {
     setFilteredProducts(sorted);
   };
 
+  // Fungsi untuk memfilter produk berdasarkan kategori
   const handleCategoryFilter = (categoryId) => {
-    console.log("Selected categoryId:", categoryId); // Log the selected categoryId
+    console.log("Selected Category ID:", categoryId); // Log ID kategori yang dipilih
     setSelectedCategory(categoryId);
-  
+
     if (categoryId) {
-      const filtered = products.filter((product) => {
-        console.log("Product object:", product); // Log each product object
-        return product.categoryId === categoryId;
-      });
-      console.log("Filtered products:", filtered); // Log the filtered results
+      // Filter produk berdasarkan categoryId
+      const filtered = products.filter((product) => product.categoryId === categoryId);
+      console.log("Filtered Products:", filtered); // Log produk yang difilter
       setFilteredProducts(filtered);
     } else {
-      setFilteredProducts(products); // Show all products when no category is selected
+      // Jika kategori tidak dipilih, tampilkan semua produk
+      setFilteredProducts(products);
     }
-  };    
+  };
 
   return (
     <div style={styles.container}>
@@ -82,19 +90,23 @@ const ProductList = () => {
             </p>
           </div>
         </div>
+
+        {/* Kategori Filter */}
         <div style={styles.filterSection}>
           <h3 style={styles.filterTitle}>Kategori</h3>
           <div style={styles.filterOptions}>
+            {/* Filter Semua Kategori */}
             <p
-              onClick={() => handleCategoryFilter("")}
+              onClick={() => handleCategoryFilter(null)}
               style={{
                 ...styles.filterText,
-                fontWeight: selectedCategory === "" ? "bold" : "normal",
+                fontWeight: selectedCategory === null ? "bold" : "normal",
                 color: "black",
               }}
             >
               Semua
             </p>
+            {/* Pemetaan kategori dari API */}
             {categories.map((category) => (
               <p
                 key={category.id}
@@ -116,7 +128,11 @@ const ProductList = () => {
       <div style={styles.grid}>
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product, index) => (
-            <div key={index} style={styles.card}>
+            <div
+              key={index}
+              style={styles.card}
+              onClick={() => handleClick(product.uuid)}
+            >
               <img
                 src={`http://localhost:5000/images/${product.picture}`}
                 alt={product.name}
@@ -148,13 +164,13 @@ const styles = {
     marginBottom: "20px",
   },
   filterTitle: {
-    borderBottom: "2px solid black", // Garis bawah pada judul
+    borderBottom: "2px solid black",
     paddingBottom: "5px",
     marginBottom: "10px",
     fontSize: "1.2rem",
   },
   filterOptions: {
-    paddingLeft: "20px", // Tab ke kanan untuk isi
+    paddingLeft: "20px",
   },
   filterText: {
     margin: "5px 0",
