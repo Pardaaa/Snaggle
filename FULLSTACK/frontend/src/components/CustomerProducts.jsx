@@ -70,9 +70,6 @@ const CustomerProducts = () => {
                         <NavLink to="/customer" style={navLinkStyle} className="navbar-item" activeStyle={{ color: '#416B39' }}>
                             Home
                         </NavLink>
-                        <NavLink to="/customer/??" style={navLinkStyle} className="navbar-item" activeStyle={{ color: '#416B39' }}>
-                            About Us
-                        </NavLink>
                         <NavLink to="/customer/product" style={navLinkStyle} className="navbar-item" activeStyle={{ color: '#416B39' }}>
                             Products
                         </NavLink>
