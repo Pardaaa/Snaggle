@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { FaWhatsapp } from 'react-icons/fa'; 
+import { IoLogoWhatsapp } from 'react-icons/io5';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -65,19 +65,18 @@ const ProductDetail = () => {
             <div style={styles.item}>
                 <h1 style={{ fontWeight: 'bold', color:'black', fontSize: '2rem'}}>{product.name}</h1>
                 <p style={{ color: '#2c3e50' }}>Rp. {product.price}</p>
-                <a 
-                    href={`https://wa.me/089645759299`} 
-                    style={{ 
-                        textDecoration: 'none', 
-                        color: 'black', 
-                        borderRadius: '5px',
-                        marginTop: '20px',
+                    <a
+                    href="https://wa.me/089645759299"
+                    className="button is-primary is-rounded"
+                    style={{
+                        fontFamily: "'Josefin Sans', sans-serif",
+                        color: 'black',
                         display: 'flex',
-                        alignItems:'center',
-                        gap: '10px',
+                        alignItems: 'center',
                     }}
-                > <FaWhatsapp />
-                    Hubungi via WhatsApp
+                >
+                    <IoLogoWhatsapp className="mr-4" />
+                    <span>089645759299</span>
                 </a>
             </div>
             <div style={{ ...styles.item, ...styles.description }}>

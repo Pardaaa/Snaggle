@@ -26,13 +26,10 @@ const ProductList = () => {
       .catch((error) => console.error("Error fetching products:", error));
 
     // Ambil data kategori
-    axios
-      .get("http://localhost:5000/category")
-      .then((response) => {
-        setCategories(response.data);
-        console.log("Categories:", response.data); // Cek data kategori
-      })
-      .catch((error) => console.error("Error fetching categories:", error));
+    axios.get("http://localhost:5000/category").then((response) => {
+      console.log("Categories from API:", response.data);
+      setCategories(response.data);
+    });
   }, []);
 
   // Fungsi untuk mengurutkan produk
@@ -46,20 +43,22 @@ const ProductList = () => {
   };
 
   // Fungsi untuk memfilter produk berdasarkan kategori
-  const handleCategoryFilter = (categoryId) => {
-    console.log("Selected Category ID:", categoryId); // Log ID kategori yang dipilih
-    setSelectedCategory(categoryId);
-
-    if (categoryId) {
-      // Filter produk berdasarkan categoryId
-      const filtered = products.filter((product) => product.categoryId === categoryId);
-      console.log("Filtered Products:", filtered); // Log produk yang difilter
+  const handleCategoryFilter = (categoryName) => {
+    console.log("Selected Category Name:", categoryName);
+    setSelectedCategory(categoryName);
+  
+    if (categoryName !== null) {
+      // Filter produk berdasarkan category.name
+      const filtered = products.filter(
+        (product) => product.category && product.category.name === categoryName
+      );
+      console.log("Filtered Products:", filtered);
       setFilteredProducts(filtered);
     } else {
       // Jika kategori tidak dipilih, tampilkan semua produk
       setFilteredProducts(products);
     }
-  };
+  };  
 
   return (
     <div style={styles.container}>
