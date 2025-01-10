@@ -146,13 +146,15 @@ const Userlist = () => {
                               >
                                  <IoCreateSharp />
                               </Link>
-                              <button
-                                 onClick={() => deleteUsers(user.uuid)}
-                                 className="button is-danger"
-                                 style={buttonIconStyle}
-                              >
-                                 <IoTrashSharp />
-                              </button>
+                              {user.role !== 'admin' ? (
+                                 <button
+                                    onClick={() => deleteUsers(user.uuid)}
+                                    className="button is-danger"
+                                    style={buttonIconStyle}
+                                 >
+                                    <IoTrashSharp />
+                                 </button>
+                              ) : null}
                            </td>
                         </tr>
                      );
