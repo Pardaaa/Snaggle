@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const FormAddUser = () => {
    const [name, setName] = useState('');
@@ -9,6 +10,8 @@ const FormAddUser = () => {
    const [confirmPassword, setConfirmPassword] = useState('');
    const [role, setRole] = useState([]);
    const [msg, setMsg] = useState('');
+   const [showPassword, setShowPassword] = useState(false);
+   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
    const navigate = useNavigate();
 
    const saveUser = async event => {
@@ -28,6 +31,7 @@ const FormAddUser = () => {
          }
       }
    };
+
    return (
       <div
          style={{
@@ -61,7 +65,9 @@ const FormAddUser = () => {
          <div className="card is-shadowless" style={formContainerStyle}>
             <div className="card-content">
                <div className="content">
-                  <p className="has-text-centered">{msg}</p>
+                  <p className="has-text-centered" style={errorMsgStyle}>
+                     {msg}
+                  </p>
                   <form onSubmit={saveUser} style={tableStyle}>
                      <div className="field">
                         <label className="label" style={labelStyle}>
@@ -97,30 +103,50 @@ const FormAddUser = () => {
                         <label className="label" style={labelStyle}>
                            Password
                         </label>
-                        <div className="control">
+                        <div
+                           className="control"
+                           style={{ position: 'relative' }}
+                        >
                            <input
                               value={password}
                               onChange={e => setPassword(e.target.value)}
-                              type="password"
+                              type={showPassword ? 'text' : 'password'}
                               className="input"
                               placeholder="*******"
                               style={placeholderStyle}
                            />
+                           <span
+                              onClick={() => setShowPassword(!showPassword)}
+                              style={iconStyle}
+                           >
+                              {showPassword ? <FaEye /> : <FaEyeSlash />}
+                           </span>
                         </div>
                      </div>
                      <div className="field">
                         <label className="label" style={labelStyle}>
                            Confirm Password
                         </label>
-                        <div className="control">
+                        <div
+                           className="control"
+                           style={{ position: 'relative' }}
+                        >
                            <input
                               value={confirmPassword}
                               onChange={e => setConfirmPassword(e.target.value)}
-                              type="password"
+                              type={showConfirmPassword ? 'text' : 'password'}
                               className="input"
                               placeholder="*******"
                               style={placeholderStyle}
                            />
+                           <span
+                              onClick={() =>
+                                 setShowConfirmPassword(!showConfirmPassword)
+                              }
+                              style={iconStyle}
+                           >
+                              {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                           </span>
                         </div>
                      </div>
                      <div className="field">
@@ -205,6 +231,22 @@ const placeholderStyle = {
    borderRadius: '5px',
    padding: '0.5rem',
    boxShadow: 'inset 4px 4px 8px rgba(0, 0, 0, 0.2)',
+};
+
+const iconStyle = {
+   position: 'absolute',
+   right: '10px',
+   top: '50%',
+   transform: 'translateY(-50%)',
+   cursor: 'pointer',
+   fontSize: '1.5rem',
+};
+
+const errorMsgStyle = {
+   fontFamily: "'Josefin Sans', sans-serif",
+   fontSize: '1rem',
+   color: 'red',
+   marginBottom: '1rem',
 };
 
 export default FormAddUser;

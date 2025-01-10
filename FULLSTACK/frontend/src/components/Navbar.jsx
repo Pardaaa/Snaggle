@@ -23,6 +23,10 @@ const Navbar = () => {
          style={{
             backgroundColor: '#F1C9F9',
             fontFamily: 'Josefin Sans, sans-serif',
+            position: 'sticky',
+            top: 0,
+            zIndex: 1000,
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
          }}
       >
          <div className="navbar-brand">
