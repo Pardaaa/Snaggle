@@ -78,13 +78,14 @@ export const updateProduct = async (req, res) => {
     const product = await Product.findOne({
       where: { uuid: req.params.id },
     });
+
     if (!product) return res.status(404).json({ msg: "Data Tidak Ditemukan" });
 
     const {
       name = product.name,
       description = product.description,
       price = product.price,
-      stok = product.stok
+      stok = product.stok,
     } = req.body;
     const categoryId = req.body.categoryId || product.categoryId;
 
@@ -100,11 +101,11 @@ export const updateProduct = async (req, res) => {
 
     if (req.files && req.files.file) {
       const file = req.files.file;
+      const ext = path.extname(file.name).toLowerCase();
       const fileSize = file.data.length;
-      const ext = path.extname(file.name);
       const allowType = [".png", ".jpg", ".jpeg"];
 
-      if (!allowType.includes(ext.toLowerCase()))
+      if (!allowType.includes(ext))
         return res.status(422).json({ msg: "Invalid Image Format" });
 
       if (fileSize > 5000000)
@@ -115,31 +116,26 @@ export const updateProduct = async (req, res) => {
       updates.picture = fileName;
       updates.url = url;
 
-      file.mv(`./public/images/${fileName}`, (err) => {
+      file.mv(`./public/images/${fileName}`, async (err) => {
         if (err) return res.status(500).json({ msg: err.message });
-      });
 
-      if (product.picture) {
-        const oldImagePath = `./public/images/${product.picture}`;
-        if (fs.existsSync(oldImagePath)) {
-          fs.unlinkSync(oldImagePath);
+        if (product.picture) {
+          const oldImagePath = `./public/images/${product.picture}`;
+          if (fs.existsSync(oldImagePath)) {
+            fs.unlinkSync(oldImagePath);
+          }
         }
-      }
+      });
     }
 
-    if (req.role === "admin") {
+    if (req.role === "admin" || req.userId === product.userId) {
       await Product.update(updates, {
         where: { id: product.id },
       });
+      return res.status(200).json({ msg: "Product updated successfully" });
     } else {
-      if (req.userId !== product.userId)
-        return res.status(403).json({ msg: "Akses Terlarang" });
-      await Product.update(updates, {
-        where: { id: product.id },
-      });
+      return res.status(403).json({ msg: "Akses Terlarang" });
     }
-
-    res.status(200).json({ msg: "Product updated successfully" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }

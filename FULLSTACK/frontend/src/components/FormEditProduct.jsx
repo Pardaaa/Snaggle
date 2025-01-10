@@ -35,7 +35,7 @@ const FormEditProduct = () => {
       getProductById();
    }, [id]);
 
-   const handleFileInputChange = event => {
+   const handleFileInputChange = (event) => {
       const image = event.target.files[0];
       if (image) {
          setFile(image);
@@ -44,7 +44,7 @@ const FormEditProduct = () => {
       }
    };
 
-   const updateProduct = async event => {
+   const updateProduct = async (event) => {
       event.preventDefault();
       const formData = new FormData();
       formData.append('name', name);
@@ -59,7 +59,7 @@ const FormEditProduct = () => {
       }
 
       try {
-         await axios.put(`http://localhost:5000/product/${id}`, formData, {
+         await axios.patch(`http://localhost:5000/product/${id}`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
          });
          navigate('/products');
@@ -140,7 +140,7 @@ const FormEditProduct = () => {
                               type="text"
                               className="input"
                               value={name}
-                              onChange={event => setName(event.target.value)}
+                              onChange={(e) => setName(e.target.value)}
                               placeholder="Product Name"
                               style={inputStyle}
                            />
@@ -159,8 +159,8 @@ const FormEditProduct = () => {
                            <textarea
                               className="input"
                               value={description}
-                              onChange={event =>
-                                 setDescription(event.target.value)
+                              onChange={(e) =>
+                                 setDescription(e.target.value)
                               }
                               placeholder="Description"
                               style={{
@@ -185,8 +185,8 @@ const FormEditProduct = () => {
                               type="number"
                               className="input"
                               value={price}
-                              onChange={event =>
-                                 setPrice(parseInt(event.target.value))
+                              onChange={(e) =>
+                                 setPrice(parseInt(e.target.value))
                               }
                               placeholder="Price"
                               style={inputStyle}
@@ -207,8 +207,8 @@ const FormEditProduct = () => {
                               type="number"
                               className="input"
                               value={stok}
-                              onChange={event =>
-                                 setStok(parseInt(event.target.value))
+                              onChange={(e) =>
+                                 setStok(parseInt(e.target.value))
                               }
                               placeholder="Stock"
                               style={inputStyle}
@@ -267,13 +267,13 @@ const FormEditProduct = () => {
                            <div className="select is-fullwidth">
                               <select
                                  value={categoryId}
-                                 onChange={event =>
-                                    setCategoryId(event.target.value)
+                                 onChange={(e) =>
+                                    setCategoryId(e.target.value)
                                  }
                                  style={inputStyle}
                               >
                                  <option value="">Select Category</option>
-                                 {categories.map(category => (
+                                 {categories.map((category) => (
                                     <option
                                        key={category.id}
                                        value={category.id}
@@ -285,14 +285,9 @@ const FormEditProduct = () => {
                            </div>
                         </div>
                      </div>
-                  </form>
-               </div>
-            </div>
-         </div>
-
-         <div
+                     <div
             style={{
-               width: '80%',
+               width: '130%',
                display: 'flex',
                justifyContent: 'flex-start',
             }}
@@ -301,14 +296,18 @@ const FormEditProduct = () => {
                type="submit"
                className="button is-success"
                style={buttonStyle}
-               onClick={updateProduct}
             >
                Update
             </button>
          </div>
-      </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         </div>
    );
 };
+
 
 const formStyle = {
    backgroundColor: '#f8f1e4',
