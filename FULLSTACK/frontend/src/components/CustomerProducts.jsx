@@ -254,11 +254,12 @@ const filterStyle = {
    flexDirection: 'column',
    alignItems: 'flex-start',
    position: 'sticky',
-   zIndex: 9,
+   zIndex: 10,
    position: 'sticky', 
    top: '110px', 
-   minHeight: '100vh',
-   height: '100vh',
+   height: 'calc(100vh - 100px)',
+   overflow: 'auto'
+   
 };
 
 const emptyBoxStyle = {
