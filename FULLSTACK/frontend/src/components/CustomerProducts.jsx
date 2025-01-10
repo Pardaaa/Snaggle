@@ -188,6 +188,10 @@ const headerStyle = {
    alignItems: 'center',
    padding: '10px 20px',
    fontSize: '1rem',
+   position: 'sticky', 
+   top: '50px', 
+   backgroundColor: '#f8f1e4', 
+   zIndex: 10,
 };
 
 const logoStyle = {
@@ -250,14 +254,20 @@ const filterStyle = {
    flexDirection: 'column',
    alignItems: 'flex-start',
    position: 'sticky',
-   top: 0,
-   zIndex: 1000,
+   zIndex: 9,
+   position: 'sticky', 
+   top: '110px', 
+   minHeight: '100vh',
+   height: '100vh',
 };
 
 const emptyBoxStyle = {
    gridColumn: 'span 2',
    height: '50px',
    backgroundColor: '#F1C9F9',
+   position: 'sticky', 
+   top: 0, 
+   zIndex: 10,
 };
 
 const filterTitleStyle = {
