@@ -172,7 +172,7 @@ const CustomerProducts = () => {
 const containerStyle = {
    fontFamily: "'Arial', sans-serif",
    display: 'grid',
-   gridTemplateColumns: '2fr 6fr',
+   gridTemplateColumns: '1fr',
    gap: '20px',
    backgroundColor: '#f8f1e4',
    fontFamily: 'Josefin Sans, sans-serif',
@@ -253,12 +253,11 @@ const filterStyle = {
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'flex-start',
-   position: 'sticky',
+   position: 'fixed',
    zIndex: 10,
-   position: 'sticky', 
+   marginTop: '50px',
    top: '110px', 
    height: 'calc(100vh - 100px)',
-   overflow: 'auto'
    
 };
 
@@ -298,6 +297,7 @@ const productGridStyle = {
    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
    gap: '20px',
    padding: '20px',
+   marginLeft: '220px',
    alignItems: 'start',
 };
 
