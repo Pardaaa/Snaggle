@@ -249,6 +249,9 @@ const filterStyle = {
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'flex-start',
+   position: 'sticky',
+   top: 0,
+   zIndex: 1000,
 };
 
 const emptyBoxStyle = {

@@ -11,6 +11,10 @@ const NavbarToko = () => {
             padding: '1rem 2rem',
             backgroundColor: '#FFF3E4',
             borderBottom: '2px solid #FFF3E4',
+            position: 'sticky',
+            top: 0,
+            zIndex: 1000,
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
          }}
       >
          {/* Navigation Links */}
