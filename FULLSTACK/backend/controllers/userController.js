@@ -41,6 +41,17 @@ export const createUsers = async (req, res) => {
     });
     res.status(201).json({ msg: "Register Berhasil" });
   } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      const field = error.errors[0].path; 
+
+      if (field === "email") {
+        return res.status(400).json({ msg: "Email sudah digunakan" });
+      }
+
+      if (field === "name") {
+        return res.status(400).json({ msg: "Nama sudah ada" });
+      }
+    }
     res.status(400).json({ msg: error.message });
   }
 };
@@ -81,6 +92,17 @@ export const updateUsers = async (req, res) => {
     );
     res.status(201).json({ msg: "User Updated" });
   } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      const field = error.errors[0].path; 
+
+      if (field === "email") {
+        return res.status(400).json({ msg: "Email sudah digunakan" });
+      }
+
+      if (field === "name") {
+        return res.status(400).json({ msg: "Nama sudah ada" });
+      }
+    }
     res.status(400).json({ msg: error.message });
   }
 };

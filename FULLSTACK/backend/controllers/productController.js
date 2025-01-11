@@ -68,6 +68,12 @@ export const createProduct = async (req, res) => {
       });
       res.status(201).json({ msg: "Product Created Succsesfully" });
     } catch (error) {
+      if (error.name === "SequelizeUniqueConstraintError") {
+        const field = error.errors[0].path; 
+        if (field === "name") {
+          return res.status(400).json({ msg: "Nama sudah ada" });
+        }
+      }
       res.status(500).json({ msg: error.message });
     }
   });
@@ -137,6 +143,12 @@ export const updateProduct = async (req, res) => {
       return res.status(403).json({ msg: "Akses Terlarang" });
     }
   } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      const field = error.errors[0].path; 
+      if (field === "name") {
+        return res.status(400).json({ msg: "Nama sudah ada" });
+      }
+    }
     res.status(400).json({ msg: error.message });
   }
 };

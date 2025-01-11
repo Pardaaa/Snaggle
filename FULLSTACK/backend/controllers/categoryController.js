@@ -41,6 +41,12 @@ export const createCategory = async (req, res) => {
     });
     res.status(201).json({ msg: "Category Created Succsesfully" });
   } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      const field = error.errors[0].path; 
+      if (field === "name") {
+        return res.status(400).json({ msg: "Category sudah ada" });
+      }
+    }
     res.status(500).json({ msg: error.message });
   }
 };
@@ -62,6 +68,12 @@ export const updateCategory = async (req, res) => {
     }
     res.status(200).json({ msg: "Category Updated" });
   } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      const field = error.errors[0].path; 
+      if (field === "name") {
+        return res.status(400).json({ msg: "Category Sudah Ada" });
+      }
+    }
     res.status(500).json({ msg: error.message });
   }
 };

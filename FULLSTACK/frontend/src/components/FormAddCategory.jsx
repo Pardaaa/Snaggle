@@ -54,7 +54,7 @@ const FormAddCategory = () => {
          <div className="card is-shadowless" style={tableStyle}>
             <div className="card-content">
                <div className="content">
-                  <p className="has-text-centered">{msg}</p>
+                  <h5 className="has-text-centered has-text-danger">{msg}</h5>
                   <form onSubmit={saveCategory}>
                      <div className="field">
                         <label style={labelStyle}>Name</label>

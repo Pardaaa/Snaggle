@@ -65,10 +65,10 @@ const FormAddUser = () => {
          <div className="card is-shadowless" style={formContainerStyle}>
             <div className="card-content">
                <div className="content">
+                  <form onSubmit={saveUser} style={tableStyle}>
                   <p className="has-text-centered" style={errorMsgStyle}>
                      {msg}
                   </p>
-                  <form onSubmit={saveUser} style={tableStyle}>
                      <div className="field">
                         <label className="label" style={labelStyle}>
                            Name

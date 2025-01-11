@@ -106,7 +106,7 @@ const FormAddProduct = () => {
             <div className="card-content">
                <div className="content">
                   <form onSubmit={saveProduct}>
-                     <p className="has-text-centered">{msg}</p>
+                  <h5 className="has-text-centered has-text-danger">{msg}</h5>
                      <div className="columns" style={rowStyle}>
                         <div className="column is-one-third">
                            <label className="label" style={labelStyle}>
