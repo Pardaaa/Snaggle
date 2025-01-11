@@ -91,13 +91,6 @@ const Productlist = () => {
                         >
                            <IoCreateSharp />
                         </Link>
-                        <button
-                           onClick={() => deleteProduct(product.uuid)}
-                           className="button is-danger"
-                           style={buttonIconStyle}
-                        >
-                           <IoTrashSharp />
-                        </button>
                      </td>
                   </tr>
                ))}

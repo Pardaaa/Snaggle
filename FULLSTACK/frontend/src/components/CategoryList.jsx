@@ -78,13 +78,6 @@ const CategoryList = () => {
                         >
                            <IoCreateSharp />
                         </Link>
-                        <button
-                           onClick={() => deleteCategories(category.uuid)}
-                           className="button is-danger"
-                           style={buttonIconStyle}
-                        >
-                           <IoTrashSharp />
-                        </button>
                      </td>
                   </tr>
                ))}
