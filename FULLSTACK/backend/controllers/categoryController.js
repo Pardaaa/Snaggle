@@ -58,7 +58,7 @@ export const updateCategory = async (req, res) => {
     });
     if (!category) return res.status(404).json({ msg: "Data Tidak Ditemukan" });
     const { name } = req.body;
-    if (req.role === "admin") {
+    if (req.role === "admin" || req.role === "staff") {
       await Category.update(
         { name: name },
         {
@@ -84,7 +84,7 @@ export const deleteCategory = async (req, res) => {
       where: { uuid: req.params.id },
     });
     if (!category) return res.status(404).json({ msg: "Data Tidak Ditemukan" });
-    if (req.role === "admin") {
+    if (req.role === "admin" || req.role === "staff") {
       await Category.destroy({
         where: { id: category.id },
       });

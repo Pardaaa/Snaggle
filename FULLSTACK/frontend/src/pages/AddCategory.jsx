@@ -17,7 +17,7 @@ const AddCategory = () => {
     if (isError) {
       navigate("/login");
     }
-    if (user && user.role !== "admin") {
+    if (user && user.role !== "admin" && user.role !== "staff") {
       navigate("/dashboard");
     }
   }, [isError, user, navigate]);

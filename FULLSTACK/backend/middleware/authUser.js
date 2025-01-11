@@ -29,5 +29,7 @@ export const adminOnly = async (req, res, next) => {
   }
   if (user.role !== "admin" && user.role !== "staff") 
     return res.status(403).json({ message: "Anda Tidak Memiliki Akses" });
+
+  req.role = user.role;
   next();
 };

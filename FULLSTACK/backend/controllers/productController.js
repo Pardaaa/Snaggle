@@ -134,7 +134,7 @@ export const updateProduct = async (req, res) => {
       });
     }
 
-    if (req.role === "admin" || req.userId === product.userId) {
+    if (req.role === "admin" || req.role === "staff" || req.userId === product.userId) {
       await Product.update(updates, {
         where: { id: product.id },
       });
@@ -159,7 +159,7 @@ export const deleteProduct = async (req, res) => {
       where: { uuid: req.params.id },
     });
     if (!product) return res.status(404).json({ msg: "Data Tidak Ditemukan" });
-    if (req.role === "admin") {
+    if (req.role === "admin" || req.role === "staff") {
       await Product.destroy({
         where: { id: product.id },
       });
