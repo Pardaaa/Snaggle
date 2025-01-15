@@ -2,18 +2,10 @@ import Category from "../models/categoryModel.js";
 
 export const getCategory = async (req, res) => {
   try {
-    const userId = req.userId;
     let response;
-    if (req.role === "admin") {
-      response = await Category.findAll({
-        attributes: ["uuid", "id", "name"],
-      });
-    } else {
-      response = await Category.findAll({
-        where: { userId },
-        attributes: ["uuid", "id", "name"],
-      });
-    }
+    response = await Category.findAll({
+      attributes: ["uuid", "id", "name"],
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });

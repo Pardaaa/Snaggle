@@ -6,21 +6,10 @@ import fs from "fs";
 export const getProduct = async (req, res) => {
   try {
     let response;
-    const userId = req.userId; 
-    if (req.role === "admin") {
-
-      response = await Product.findAll({
-        attributes: ["uuid", "name", "description", "price", "stok", "picture"],
-        include: [{ model: Category, attributes: ["name"] }],
-      });
-    } else {
-
-      response = await Product.findAll({
-        where: { userId }, 
-        attributes: ["uuid", "name", "description", "price", "stok", "picture"],
-        include: [{ model: Category, attributes: ["name"] }],
-      });
-    }
+    response = await Product.findAll({
+      attributes: ["uuid", "name", "description", "price", "stok", "picture"],
+      include: [{ model: Category, attributes: ["name"] }],
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
