@@ -23,15 +23,15 @@ const Userlist = () => {
       }
    };
 
-   const deleteUsers = async userId => {
-      try {
-         await axios.delete(`http://localhost:5000/users/${userId}`);
-         setUsers(users.filter(user => user.uuid !== userId));
-         setAllUsers(allUsers.filter(user => user.uuid !== userId));
-      } catch (error) {
-         console.error('Failed to delete user:', error);
-      }
-   };
+   // const deleteUsers = async userId => {
+   //    try {
+   //       await axios.delete(`http://localhost:5000/users/${userId}`);
+   //       setUsers(users.filter(user => user.uuid !== userId));
+   //       setAllUsers(allUsers.filter(user => user.uuid !== userId));
+   //    } catch (error) {
+   //       console.error('Failed to delete user:', error);
+   //    }
+   // };
 
    const handleAddUser = () => {
       navigate('/users/add');

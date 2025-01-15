@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { IoTrashSharp, IoCreateSharp, IoSearchSharp } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Productlist = () => {
+   const [allProducts, setallProducts] = useState([]);
    const [products, setProducts] = useState([]);
+   const [searchTerm, setSearchTerm] = useState('');
+   const navigate = useNavigate();
 
    useEffect(() => {
       getProducts();
@@ -13,11 +16,31 @@ const Productlist = () => {
    const getProducts = async () => {
       const response = await axios.get('http://localhost:5000/product');
       setProducts(response.data);
+      setallProducts(response.data);
    };
 
    const deleteProduct = async productId => {
       await axios.delete(`http://localhost:5000/product/${productId}`);
       getProducts();
+   };
+
+   const handleAddUser = () => {
+      navigate('/products/add');
+   };
+
+   const handleSearchChange = e => {
+      setSearchTerm(e.target.value);
+   };
+
+   const handleSearch = () => {
+      if (searchTerm.trim() === '') {
+         setProducts(allProducts);
+      } else {
+         const filteredProducts = allProducts.filter(products =>
+            products.name.toLowerCase().includes(searchTerm.toLowerCase())
+         );
+         setProducts(filteredProducts);
+      }
    };
 
    return (
@@ -57,6 +80,20 @@ const Productlist = () => {
          >
             Add New
          </Link>
+         <div style={searchContainerStyle}>
+               <div style={inputWrapperStyle}>
+                  <input
+                     type="text"
+                     placeholder="Search By Name"
+                     style={inputStyle}
+                     value={searchTerm}
+                     onChange={handleSearchChange}
+                  />
+                  <button style={buttonInsideInputStyle} onClick={handleSearch}>
+                     Telusuri
+                  </button>
+               </div>
+            </div>
          <table className="table is-striped is-fullwidth" style={tableStyle}>
             <thead>
                <tr>
@@ -98,6 +135,49 @@ const Productlist = () => {
          </table>
       </div>
    );
+};
+
+const searchContainerStyle = {
+   display: 'flex',
+   alignItems: 'center',
+   gap: '0.5rem',
+   width: '50%',
+   justifyContent: 'flex-start',
+   marginLeft: '3rem',
+   marginRight: '13rem',
+};
+
+const inputWrapperStyle = {
+   display: 'flex',
+   alignItems: 'center',
+   width: '100%',
+   position: 'relative',
+};
+
+const inputStyle = {
+   padding: '0.8rem 1.5rem',
+   border: '1px solid #ccc',
+   borderRadius: '0.5rem',
+   width: '90%',
+   backgroundColor: '#e2e8f0',
+   fontWeight: 'bold',
+   fontSize: '1.2rem',
+   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+   fontFamily: "'Josefin Sans', sans-serif",
+};
+
+const buttonInsideInputStyle = {
+   backgroundColor: '#416B39',
+   color: 'white',
+   padding: '0.5rem 2rem',
+   borderRadius: '0.5rem',
+   fontWeight: 'bold',
+   fontFamily: "'Josefin Sans', sans-serif",
+   position: 'absolute',
+   right: '6rem',
+   top: '50%',
+   transform: 'translateY(-50%)',
+   cursor: 'pointer',
 };
 
 const tableStyle = {
