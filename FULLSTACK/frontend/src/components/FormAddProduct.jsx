@@ -137,14 +137,14 @@ const FormAddProduct = () => {
                            <textarea
                               className="input"
                               value={description}
-                              onChange={event =>
-                                 setDescription(event.target.value)
-                              }
+                              onChange={event => setDescription(event.target.value)}
                               placeholder="Description"
                               style={{
                                  ...inputStyle,
                                  resize: 'none',
-                                 height: '80px',
+                                 height: '150px', // Sesuaikan tinggi textarea sesuai kebutuhan
+                                 whiteSpace: 'pre-wrap', // Pastikan baris baru tetap ada
+                                 wordWrap: 'break-word', // Teks panjang akan terbungkus
                               }}
                            />
                         </div>

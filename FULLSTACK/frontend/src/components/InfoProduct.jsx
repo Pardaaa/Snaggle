@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { IoLogoWhatsapp } from 'react-icons/io5';
 
-const InfoProduct = () => {
+const ProductDetail = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
 
@@ -29,43 +29,53 @@ const InfoProduct = () => {
         container: {
             fontFamily: 'Josefin Sans, sans-serif',
             display: 'flex',
-            justifyContent: 'space-around', 
-            alignItems: 'flex-start', 
-            margin: '40px auto', 
+            flexWrap: 'wrap', // Allow content to wrap if needed
+            justifyContent: 'space-between', // Space out items
+            margin: '40px auto',
             padding: '20px',
             maxWidth: '1200px', 
             width: '100%',
-            alignItems: 'center',
         },
         item: {
-            flex: '1', 
+            flex: '1',
             margin: '0 30px',
+            minWidth: '300px', // Ensure a minimum width for each item (image or description)
         },
-        image : {
+        image: {
             width: '100%',
-            height: '250px',
+            height: 'auto', // Adjust height automatically based on aspect ratio
+            maxHeight: '350px', // Set max height for the image to avoid overflow
             objectFit: 'cover',
             borderRadius: '10px',
             boxShadow: '0 5px 5px rgba(0, 0, 0, 0.4)',
-         
-         },
+        },
         description: {
-            flex: '2', 
-            textAlign: 'justify', 
+            flex: '2',
+            textAlign: 'justify',
             color: '#000',
+            paddingLeft: '20px',
         },
     };
 
     return (
         <div style={styles.container}>
+            {/* Image Section */}
             <div style={styles.item}>
-                <img src={`http://localhost:5000/images/${product.picture}`} alt={product.name} style={styles.image} />
-                
+                <img 
+                    src={`http://localhost:5000/images/${product.picture}`} 
+                    alt={product.name} 
+                    style={styles.image} 
+                />
             </div>
+
+            {/* Description Section */}
             <div style={styles.item}>
                 <h1 style={{ fontWeight: 'bold', color:'black', fontSize: '2rem'}}>{product.name}</h1>
-                <p style={{ color: '#2c3e50' }}>Rp. {product.price}</p>
-                    <a
+                <p style={{ fontWeight: 'bold', color:'black', fontSize: '1rem'}}>Stock: {product.stok}</p> 
+                <br />   
+                <p style={{ color: '#2c3e50'}}>Rp. {product.price}</p>
+                <br />
+                <a
                     href="https://wa.me/089645759299"
                     className="button is-primary is-rounded"
                     style={{
@@ -79,11 +89,25 @@ const InfoProduct = () => {
                     <span>089645759299</span>
                 </a>
             </div>
-            <div style={{ ...styles.item, ...styles.description }}>
-                <p>{product.description}</p>
+
+            {/* Description (Long Text) */}
+            <div
+                className="content mt-5"
+                style={{
+                    fontFamily: "'Josefin Sans', sans-serif",
+                    textAlign: 'left',
+                    fontSize: '20px',
+                    color: 'black',
+                    marginBottom: '13px',
+                    whiteSpace: 'pre-wrap', // Ensure newlines are respected
+                    wordWrap: 'break-word', // Make sure long words break and wrap
+                    maxWidth: '100%', // Ensure description doesn't overflow
+                }}
+            >
+                {product.description}
             </div>
         </div>
     );
 };
 
-export default InfoProduct;
+export default ProductDetail;
