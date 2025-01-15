@@ -96,6 +96,9 @@ const Navbar = () => {
 
          <div className="navbar-end">
             <div className="navbar-item">
+               <button 
+               className="button is-danger"
+               >Change Password</button>
                <button
                   onClick={logout}
                   className="button"

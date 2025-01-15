@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Login from './components/Login';
+import RecoPassword from './components/RecoveryPassoword'
 import Users from './pages/Users';
 import AddUser from './pages/AddUser';
 import EditUser from './pages/EditUser';
@@ -24,6 +25,7 @@ function App() {
       <BrowserRouter>
          <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/recoveryPassword" element={<RecoPassword />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/users" element={<Users />} />
             <Route path="/users/add" element={<AddUser />} />

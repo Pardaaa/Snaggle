@@ -1,31 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link,useNavigate } from 'react-router-dom';
-import { LoginUser, reset } from '../features/authSlice';
+import React, { useState} from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import photo from '../Images/background.png';
 
 const Login = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+   const [newPassword, setnewPassword] = useState('');
+   const [confPassword, setconfPassword] = useState('');
+   const [msg, setMsg] = useState('');
    const [showPassword, setShowPassword] = useState(false);
-   const dispatch = useDispatch();
    const navigate = useNavigate();
-   const { user, isError, isSuccess, isLoading, message } = useSelector(
+   const {isLoading} = useSelector(
       state => state.auth
    );
-   
-   useEffect(() => {
-      if (user || isSuccess) {
-         navigate('/dashboard');
-      }
-      dispatch(reset());
-   }, [user, isSuccess, dispatch, navigate]);
 
-   const Auth = e => {
-      e.preventDefault();
-      dispatch(LoginUser({ email, password }));
-   };
+   const recoPassword = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.patch(`http://localhost:5000/recoveryPassword`, {
+        email,
+        password,
+        newPassword,
+        confPassword,
+      });
+      navigate("/login");
+    } catch (error) {
+        if (error.response) {
+            setMsg(error.response.data.msg);
+         }
+    }
+  };
 
    // Background
    const backgroundImage = {
@@ -39,9 +46,9 @@ const Login = () => {
       <section style={backgroundImage}>
          <div style={containerStyle}>
             <div style={formContainerStyle}>
-               <form onSubmit={Auth} style={formStyle}>
-                  {isError && <p style={errorMessageStyle}>{message}</p>}
-                  <h1 style={titleStyle}>Login</h1>
+               <form onSubmit={recoPassword} style={formStyle}>
+               <p className="has-text-centered">{msg}</p>
+                  <h1 style={titleStyle}>Recovery</h1>
                   <div style={fieldStyle}>
                      <input
                         type="text"
@@ -67,7 +74,40 @@ const Login = () => {
                            {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
                      </div>
-                     <Link to={`/recoveryPassword`}>Forget Password</Link>
+                  </div>
+                  <div style={fieldStyle}>
+                     <div style={{ position: 'relative' }}>
+                        <input
+                           type={showPassword ? 'text' : 'password'}
+                           value={newPassword}
+                           onChange={e => setnewPassword(e.target.value)}
+                           placeholder="New Password"
+                           style={inputStyle}
+                        />
+                        <span
+                           onClick={() => setShowPassword(!showPassword)}
+                           style={iconStyle}
+                        >
+                           {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                     </div>
+                  </div>
+                  <div style={fieldStyle}>
+                     <div style={{ position: 'relative' }}>
+                        <input
+                           type={showPassword ? 'text' : 'password'}
+                           value={confPassword}
+                           onChange={e => setconfPassword(e.target.value)}
+                           placeholder="Confirm Password"
+                           style={inputStyle}
+                        />
+                        <span
+                           onClick={() => setShowPassword(!showPassword)}
+                           style={iconStyle}
+                        >
+                           {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                     </div>
                   </div>
                   <div style={{ textAlign: 'center' }}>
                      <button type="submit" style={buttonStyle}>

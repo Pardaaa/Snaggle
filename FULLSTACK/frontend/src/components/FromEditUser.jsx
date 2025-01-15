@@ -35,7 +35,7 @@ const FormEditUser = () => {
             name: name,
             email: email,
             password: password,
-            confirmPassword: confirmPassword,
+            confPassword: confirmPassword,
             role: role,
          });
          navigate('/users');
@@ -78,8 +78,8 @@ const FormEditUser = () => {
          <div className="card is-shadowless" style={formContainerStyle}>
             <div className="card-content">
                <div className="content">
-                  <p className="has-text-centered">{msg}</p>
                   <form onSubmit={updateUser} style={tableStyle}>
+                  <p className="has-text-centered">{msg}</p>
                      <div className="field">
                         <label className="label" style={labelStyle}>
                            Name

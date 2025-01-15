@@ -103,3 +103,15 @@ Content-Type: application/json
   "status": "tersedia",
   "categoryId":"1"
 }
+
+###
+// post Data Category
+PATCH http://localhost:5000/recoveryPassword
+Content-Type: application/json
+
+{
+  "email": "nabilla@gmail.com",
+  "password": "snaggle",
+  "newPassword": "well",
+  "confPassword": "well"
+}
