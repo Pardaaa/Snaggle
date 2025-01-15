@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IoTrashSharp, IoCreateSharp, IoSearchSharp } from 'react-icons/io5';
+import { IoCreateSharp, IoSearchSharp } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -19,17 +19,22 @@ const Productlist = () => {
       setallProducts(response.data);
    };
 
-   const deleteProduct = async productId => {
-      await axios.delete(`http://localhost:5000/product/${productId}`);
-      getProducts();
-   };
+   // const deleteProduct = async productId => {
+   //    await axios.delete(`http://localhost:5000/product/${productId}`);
+   //    getProducts();
+   // };
 
    const handleAddUser = () => {
       navigate('/products/add');
    };
 
    const handleSearchChange = e => {
-      setSearchTerm(e.target.value);
+      const value = e.target.value;
+      setSearchTerm(value);
+
+      if (value.trim() === '') {
+         setProducts(allProducts);
+      }
    };
 
    const handleSearch = () => {
@@ -73,14 +78,15 @@ const Productlist = () => {
          >
             List of Products
          </h2>
-         <Link
-            to={'/products/add'}
-            className="button is-info mb-2"
-            style={buttonStyle}
-         >
-            Add New
-         </Link>
-         <div style={searchContainerStyle}>
+         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Link
+               to={'/products/add'}
+               className="button is-info mb-2"
+               style={buttonStyle}
+            >
+               Add New
+            </Link>
+            <div style={searchContainerStyle}>
                <div style={inputWrapperStyle}>
                   <input
                      type="text"
@@ -94,6 +100,7 @@ const Productlist = () => {
                   </button>
                </div>
             </div>
+         </div>
          <table className="table is-striped is-fullwidth" style={tableStyle}>
             <thead>
                <tr>
@@ -157,7 +164,7 @@ const inputWrapperStyle = {
 const inputStyle = {
    padding: '0.8rem 1.5rem',
    border: '1px solid #ccc',
-   borderRadius: '0.5rem',
+   borderRadius: '2rem',
    width: '90%',
    backgroundColor: '#e2e8f0',
    fontWeight: 'bold',
@@ -167,10 +174,11 @@ const inputStyle = {
 };
 
 const buttonInsideInputStyle = {
-   backgroundColor: '#416B39',
-   color: 'white',
+   backgroundColor: '#2CAFE8',
+   border: '2px solid #000',
+   color: 'black',
    padding: '0.5rem 2rem',
-   borderRadius: '0.5rem',
+   borderRadius: '2rem',
    fontWeight: 'bold',
    fontFamily: "'Josefin Sans', sans-serif",
    position: 'absolute',

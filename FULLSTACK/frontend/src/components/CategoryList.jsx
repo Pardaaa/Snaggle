@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { IoTrashSharp, IoCreateSharp } from 'react-icons/io5';
-import { Link, useNavigate } from 'react-router-dom';
+import { IoCreateSharp } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const CategoryList = () => {
@@ -18,13 +18,18 @@ const CategoryList = () => {
       setallCategories(response.data);
    };
 
-   const deleteCategories = async userId => {
-      await axios.delete(`http://localhost:5000/category/${userId}`);
-      getCategories();
-   };
+   // const deleteCategories = async userId => {
+   //    await axios.delete(`http://localhost:5000/category/${userId}`);
+   //    getCategories();
+   // };
 
    const handleSearchChange = e => {
-      setSearchTerm(e.target.value);
+      const value = e.target.value;
+      setSearchTerm(value);
+
+      if (value.trim() === '') {
+         setCategories(allCategories);
+      }
    };
 
    const handleSearch = () => {
@@ -68,14 +73,15 @@ const CategoryList = () => {
          >
             List Of Categories
          </h2>
-         <Link
-            to={'/category/add'}
-            className="button is-info mb-2"
-            style={buttonStyle}
-         >
-            Add New
-         </Link>
-         <div style={searchContainerStyle}>
+         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Link
+               to={'/category/add'}
+               className="button is-info mb-2"
+               style={buttonStyle}
+            >
+               Add New
+            </Link>
+            <div style={searchContainerStyle}>
                <div style={inputWrapperStyle}>
                   <input
                      type="text"
@@ -89,6 +95,7 @@ const CategoryList = () => {
                   </button>
                </div>
             </div>
+         </div>
          <table className="table is-striped is-fullwidth" style={tableStyle}>
             <thead>
                <tr>
@@ -124,7 +131,6 @@ const searchContainerStyle = {
    alignItems: 'center',
    gap: '0.5rem',
    width: '50%',
-   justifyContent: 'flex-start',
    marginLeft: '3rem',
    marginRight: '13rem',
 };
@@ -139,7 +145,7 @@ const inputWrapperStyle = {
 const inputStyle = {
    padding: '0.8rem 1.5rem',
    border: '1px solid #ccc',
-   borderRadius: '0.5rem',
+   borderRadius: '2rem',
    width: '90%',
    backgroundColor: '#e2e8f0',
    fontWeight: 'bold',
@@ -149,10 +155,11 @@ const inputStyle = {
 };
 
 const buttonInsideInputStyle = {
-   backgroundColor: '#416B39',
-   color: 'white',
+   backgroundColor: '#2CAFE8',
+   color: 'black',
    padding: '0.5rem 2rem',
-   borderRadius: '0.5rem',
+   border: '2px solid #000',
+   borderRadius: '2rem',
    fontWeight: 'bold',
    fontFamily: "'Josefin Sans', sans-serif",
    position: 'absolute',

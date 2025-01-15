@@ -36,9 +36,13 @@ const Userlist = () => {
    const handleAddUser = () => {
       navigate('/users/add');
    };
-
    const handleSearchChange = e => {
-      setSearchTerm(e.target.value);
+      const value = e.target.value;
+      setSearchTerm(value);
+
+      if (value.trim() === '') {
+         setUsers(allUsers);
+      }
    };
 
    const handleSearch = () => {
