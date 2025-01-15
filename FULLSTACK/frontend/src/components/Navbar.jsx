@@ -33,17 +33,16 @@ const Navbar = () => {
     }
 
     try {
-      // Send the password change request to the backend
       const response = await axios.patch('http://localhost:5000/recoveryPassword', {
-        email: user.email,  // Use the logged-in user's email
-        password,  // Current password
-        newPassword,  // New password
-        confPassword,  // Confirm new password
+        email: user.email,  
+        password,  
+        newPassword, 
+        confPassword, 
       });
 
-      // Assuming the backend sends a success message
+
       if (response.data.success) {
-        setShowModal(false);  // Close the modal after successful password change
+        setShowModal(false);  
         setMsg('Password changed successfully!');
       }
     } catch (error) {
@@ -211,7 +210,7 @@ const Navbar = () => {
 
                 <div className="field is-grouped is-grouped-centered">
                   <div className="control">
-                    <button type="submit" className="button is-primary">
+                    <button type="submit" className="button is-primary" /*onClick={() => setShowModal(false)}*/>
                       Submit
                     </button>
                   </div>
