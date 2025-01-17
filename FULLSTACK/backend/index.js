@@ -19,7 +19,7 @@ const store = new sessionStore({
    db: db,
 });
 // (async () => {
-//   await db.sync({ alter: true });;
+//    await db.sync({ alter: true });
 // })();
 
 app.use(
