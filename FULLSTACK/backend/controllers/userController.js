@@ -28,8 +28,11 @@ export const getUsersbyId = async (req, res) => {
 
 export const createUsers = async (req, res) => {
   const { name, email, password, confirmPassword, role } = req.body;
+  if (password.length < 8 || confirmPassword.length < 8) {
+    return res.status(400).json({msg: "Panjang Karakter Password minimal 8"})
+  }
   if (!password || password !== confirmPassword) {
-    res.status(400).json({ msg: "Password dan Confirm Password Tidak Cocok!" });
+    return res.status(400).json({ msg: "Password dan Confirm Password Tidak Cocok!" });
   }
   const hashPassword = await argon2.hash(password);
   try {
@@ -68,10 +71,12 @@ export const updateUsers = async (req, res) => {
   let hashPassword = user.password;
 
   if (password) {
+    if (password.length < 8 || confPassword.length < 8) {
+      return res.status(400).json({msg: "Panjang Karakter Password minimal 8"})
+    }
     if (password !== confPassword) {
       return res
-        .status(400)
-        .json({ msg: "Password dan Confirm Password tidak cocok!" });
+        .status(400).json({ msg: "Password dan Confirm Password tidak cocok!" });
     }
     hashPassword = await argon2.hash(password);
   }

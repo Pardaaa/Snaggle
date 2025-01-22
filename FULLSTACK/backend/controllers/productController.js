@@ -49,9 +49,9 @@ export const createProduct = async (req, res) => {
   const allowType = [".png", ".jpg", ".jpeg"];
   const { name, price, description, stok, categoryId } = req.body;
   if (!allowType.includes(ext.toLowerCase()))
-    return res.status(422).json({ msg: "Invalid Images" });
+    return res.status(422).json({ msg: "Format foto harus PNG/JPG/JPEG" });
   if (fileSize > 5000000)
-    return res.status(422).json({ msg: "Image must be less than 5 MB" });
+    return res.status(422).json({ msg: "Foto Harus lebih kurang dari 5 MB" });
   let userId = req.userId;
   file.mv(`./public/images/${fileName}`, async (err) => {
     if (err) return res.status(500).json({ msg: err.message });

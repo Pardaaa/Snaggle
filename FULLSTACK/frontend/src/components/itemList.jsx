@@ -6,8 +6,8 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [sortOrder, setSortOrder] = useState(""); // "asc" or "desc"
-  const [selectedCategory, setSelectedCategory] = useState(null); // Gunakan null untuk default
+  const [sortOrder, setSortOrder] = useState(""); 
+  const [selectedCategory, setSelectedCategory] = useState(null); 
   const navigate = useNavigate();
 
   const handleClick = (id) => {

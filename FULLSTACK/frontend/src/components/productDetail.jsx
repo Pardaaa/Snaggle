@@ -29,8 +29,8 @@ const ProductDetail = () => {
         container: {
             fontFamily: 'Josefin Sans, sans-serif',
             display: 'flex',
-            flexWrap: 'wrap', // Allow content to wrap if needed
-            justifyContent: 'space-between', // Space out items
+            flexWrap: 'wrap', 
+            justifyContent: 'space-between',
             margin: '40px auto',
             padding: '20px',
             maxWidth: '1200px', 
@@ -39,12 +39,12 @@ const ProductDetail = () => {
         item: {
             flex: '1',
             margin: '0 30px',
-            minWidth: '300px', // Ensure a minimum width for each item (image or description)
+            minWidth: '300px', 
         },
         image: {
             width: '100%',
-            height: 'auto', // Adjust height automatically based on aspect ratio
-            maxHeight: '350px', // Set max height for the image to avoid overflow
+            height: 'auto', 
+            maxHeight: '350px', 
             objectFit: 'cover',
             borderRadius: '10px',
             boxShadow: '0 5px 5px rgba(0, 0, 0, 0.4)',
@@ -59,7 +59,6 @@ const ProductDetail = () => {
 
     return (
         <div style={styles.container}>
-            {/* Image Section */}
             <div style={styles.item}>
                 <img 
                     src={`http://localhost:5000/images/${product.picture}`} 
@@ -68,7 +67,6 @@ const ProductDetail = () => {
                 />
             </div>
 
-            {/* Description Section */}
             <div style={styles.item}>
                 <h1 style={{ fontWeight: 'bold', color:'black', fontSize: '2rem'}}>{product.name}</h1>
                 <p style={{ fontWeight: 'bold', color:'black', fontSize: '1rem'}}>Stock: {product.stok}</p> 
@@ -90,7 +88,6 @@ const ProductDetail = () => {
                 </a>
             </div>
 
-            {/* Description (Long Text) */}
             <div
                 className="content mt-5"
                 style={{
@@ -99,9 +96,9 @@ const ProductDetail = () => {
                     fontSize: '20px',
                     color: 'black',
                     marginBottom: '13px',
-                    whiteSpace: 'pre-wrap', // Ensure newlines are respected
-                    wordWrap: 'break-word', // Make sure long words break and wrap
-                    maxWidth: '100%', // Ensure description doesn't overflow
+                    whiteSpace: 'pre-wrap', 
+                    wordWrap: 'break-word', 
+                    maxWidth: '100%', 
                 }}
             >
                 {product.description}

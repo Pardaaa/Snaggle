@@ -20,9 +20,8 @@ const Login = () => {
    const recoPassword = async (event) => {
     event.preventDefault();
     try {
-      await axios.patch(`http://localhost:5000/recoveryPassword`, {
+      await axios.patch(`http://localhost:5000/forgetPassword`, {
         email,
-        password,
         newPassword,
         confPassword,
       });
@@ -34,7 +33,6 @@ const Login = () => {
     }
   };
 
-   // Background
    const backgroundImage = {
       backgroundImage: `url(${photo})`,
       backgroundSize: 'cover',
@@ -47,7 +45,7 @@ const Login = () => {
          <div style={containerStyle}>
             <div style={formContainerStyle}>
                <form onSubmit={recoPassword} style={formStyle}>
-               <p className="has-text-centered">{msg}</p>
+               <p className="has-text-centered has-text-danger">{msg}</p>
                   <h1 style={titleStyle}>Recovery</h1>
                   <div style={fieldStyle}>
                      <input
@@ -57,23 +55,6 @@ const Login = () => {
                         placeholder="Email"
                         style={inputStyle}
                      />
-                  </div>
-                  <div style={fieldStyle}>
-                     <div style={{ position: 'relative' }}>
-                        <input
-                           type={showPassword ? 'text' : 'password'}
-                           value={password}
-                           onChange={e => setPassword(e.target.value)}
-                           placeholder="Password"
-                           style={inputStyle}
-                        />
-                        <span
-                           onClick={() => setShowPassword(!showPassword)}
-                           style={iconStyle}
-                        >
-                           {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </span>
-                     </div>
                   </div>
                   <div style={fieldStyle}>
                      <div style={{ position: 'relative' }}>
