@@ -211,7 +211,7 @@ const Navbar = () => {
                 <div className="field is-grouped is-grouped-centered">
                   <div className="control">
                     <button type="submit" className="button is-primary" /*onClick={() => setShowModal(false)}*/>
-                      Submit
+                      Change
                     </button>
                   </div>
                   <div className="control">

@@ -92,7 +92,7 @@ const Login = () => {
                   </div>
                   <div style={{ textAlign: 'center' }}>
                      <button type="submit" style={buttonStyle}>
-                        {isLoading ? 'Loading...' : 'Login'}
+                        {isLoading ? 'Loading...' : 'Change'}
                      </button>
                   </div>
                </form>

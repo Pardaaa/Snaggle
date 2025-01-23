@@ -69,7 +69,6 @@ const FormEditCategory = () => {
             <div className="card-content">
                <div className="content">
                   <p className="has-text-centered">{msg}</p>
-                  <p className="has-text-centered">{msg}</p>
                   <form onSubmit={updateCategories}>
                      <div className="field">
                         <label className="label" style={labelStyle}>
