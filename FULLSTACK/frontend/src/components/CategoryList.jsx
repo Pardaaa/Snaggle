@@ -17,7 +17,7 @@ const CategoryList = () => {
       setCategories(response.data);
       setallCategories(response.data);
    };
-
+   
    // const deleteCategories = async userId => {
    //    await axios.delete(`http://localhost:5000/category/${userId}`);
    //    getCategories();

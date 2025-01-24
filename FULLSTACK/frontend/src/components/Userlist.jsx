@@ -143,6 +143,7 @@ const Userlist = () => {
                            <td style={tableCellStyle}>{user.email}</td>
                            <td style={tableCellStyle}>{user.role}</td>
                            <td style={actionCellStyle}>
+                           {user.role !== "admin" && (
                               <Link
                                  to={`/users/edit/${user.uuid}`}
                                  className="button is-warning mr-2"
@@ -150,6 +151,7 @@ const Userlist = () => {
                               >
                                  <IoCreateSharp />
                               </Link>
+                           )}
                            </td>
                         </tr>
                      );
